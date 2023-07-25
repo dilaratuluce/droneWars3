@@ -27,12 +27,14 @@ public class gun : MonoBehaviour
     //Vector3 zeroPos = new Vector3(0,0,0);
 
     Slider EnemyHealthSlider;
-    
+
+    [SerializeField] AI_drone AI_drone; // doo
 
 
     void Start()
     {
         health = FindObjectOfType<manager>();
+        AI_drone = FindObjectOfType<AI_drone>(); //doo
     }
 
     // Update is called once per frame
@@ -80,16 +82,13 @@ public class gun : MonoBehaviour
             else if (hit.transform.tag.Equals("enemy"))
             {
                 EnemyHealthSlider = hit.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-                //if (health.getEnemyHealth() >= 25)
                 if(EnemyHealthSlider.value > 25)
                 {
-                    //health.decEnemyHealth(25);
                     EnemyHealthSlider.value -= 25;
 
                 }
                 else
                 {
-                    //health.decEnemyHealth(25);
                     EnemyHealthSlider.value = 0;
                     hit.transform.gameObject.SetActive(false);
                     health.incScore(5);
@@ -98,7 +97,29 @@ public class gun : MonoBehaviour
                 }
                 StartCoroutine(ReactivateEnemyDrone(hit.transform.gameObject));
             }
-            
+
+            else if (hit.transform.tag.Equals("AI_drone")) // doo
+            {
+                EnemyHealthSlider = hit.transform.gameObject.GetComponentsInChildren<Slider>()[0];
+                if (EnemyHealthSlider.value > 25)
+                {
+                    AI_drone = hit.transform.gameObject.GetComponent<AI_drone>();
+                    EnemyHealthSlider.value -= 25;
+                    AI_drone.changePosBool(true); 
+                    //Debug.Log("changePos is true");
+
+                }
+                else
+                {
+                    EnemyHealthSlider.value = 0;
+                    Destroy(hit.transform.gameObject);
+                    health.incScore(5);
+                    Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+
+                }
+
+
+            }
 
             else if (hit.transform.tag.Equals("health_drone"))
             {

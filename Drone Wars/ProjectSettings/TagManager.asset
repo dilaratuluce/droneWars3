@@ -13,6 +13,7 @@ TagManager:
   - unshootable
   - enemy
   - rotating enemy
+  - AI_drone
   layers:
   - Default
   - TransparentFX
