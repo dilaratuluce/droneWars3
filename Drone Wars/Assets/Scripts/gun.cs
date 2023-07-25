@@ -58,6 +58,38 @@ public class gun : MonoBehaviour
                 health.incScore(5);
                 Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
             }
+            else if (hit.transform.tag.Equals("enemy"))
+            {
+                if(health.getEnemyHealth() > 25)
+                {
+                    health.decEnemyHealth(25);
+
+                }
+                else
+                {
+                    health.decEnemyHealth(25);
+                    Destroy(hit.transform.gameObject);
+                    health.incScore(5);
+                    Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+
+                }
+            }
+            else if (hit.transform.tag.Equals("rotating enemy"))
+            {
+                if (health.getRotatingEnemyHealth() > 50)
+                {
+                    health.decRotatingEnemyHealth(50);
+
+                }
+                else
+                {
+                    health.decRotatingEnemyHealth(50);
+                    Destroy(hit.transform.gameObject);
+                    health.incScore(5);
+                    Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+
+                }
+            }
 
             else if (hit.transform.tag.Equals("health_drone"))
             {

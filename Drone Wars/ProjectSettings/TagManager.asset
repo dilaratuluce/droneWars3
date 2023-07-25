@@ -11,6 +11,8 @@ TagManager:
   - health_drone
   - drone
   - unshootable
+  - enemy
+  - rotating enemy
   layers:
   - Default
   - TransparentFX
