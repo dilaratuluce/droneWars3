@@ -41,7 +41,20 @@ public class gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+
         }
+    }
+    IEnumerator ReactivateHealthDrone(GameObject healthDrone)
+    {
+        yield return new WaitForSeconds(12f); // Wait for 12 seconds before reactivating the health drone
+        healthDrone.SetActive(true);
+    }
+    IEnumerator ReactivateEnemyDrone(GameObject enemyDrone)
+    {
+        yield return new WaitForSeconds(20f); // Wait for 30 seconds before reactivating the enemy drone,
+        EnemyHealthSlider = enemyDrone.GetComponentsInChildren<Slider>()[0];
+        EnemyHealthSlider.value = 100;
+        enemyDrone.SetActive(true);
     }
 
     void Shoot()
@@ -78,24 +91,27 @@ public class gun : MonoBehaviour
                 {
                     //health.decEnemyHealth(25);
                     EnemyHealthSlider.value = 0;
-                    Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.SetActive(false);
                     health.incScore(5);
                     Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
 
                 }
+                StartCoroutine(ReactivateEnemyDrone(hit.transform.gameObject));
             }
             
 
             else if (hit.transform.tag.Equals("health_drone"))
             {
                 Debug.Log("health drone shooted");
-                Destroy(hit.transform.gameObject);
+                hit.transform.gameObject.SetActive(false);
                 health.incHealth(30);
                 health.incScore(5);
                 //health_plus_rotation = new Vector3(hit.transform.rotation.x, (zeroPos - transform.position).normalized.y, hit.transform.rotation.z);
                 Instantiate(health_plus, hit.transform.position, hit.transform.rotation); // health code line
                 Instantiate(health_explosionEffect, hit.transform.position, hit.transform.rotation);
+                StartCoroutine(ReactivateHealthDrone(hit.transform.gameObject));
             }
+        }
 
         }
         /*else
@@ -121,7 +137,7 @@ public class gun : MonoBehaviour
 
     }*/
 
-}
+
         
 
 
