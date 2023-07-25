@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gun : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class gun : MonoBehaviour
     //private float LastShootTime;
 
     [SerializeField] private GameObject health_plus; // health code line
+    //Vector3 health_plus_rotation;
+    //Vector3 zeroPos = new Vector3(0,0,0);
+
+    Slider EnemyHealthSlider;
+    
 
 
     void Start()
@@ -60,36 +66,25 @@ public class gun : MonoBehaviour
             }
             else if (hit.transform.tag.Equals("enemy"))
             {
-                if(health.getEnemyHealth() > 25)
+                EnemyHealthSlider = hit.transform.gameObject.GetComponentsInChildren<Slider>()[0];
+                //if (health.getEnemyHealth() >= 25)
+                if(EnemyHealthSlider.value > 25)
                 {
-                    health.decEnemyHealth(25);
+                    //health.decEnemyHealth(25);
+                    EnemyHealthSlider.value -= 25;
 
                 }
                 else
                 {
-                    health.decEnemyHealth(25);
+                    //health.decEnemyHealth(25);
+                    EnemyHealthSlider.value = 0;
                     Destroy(hit.transform.gameObject);
                     health.incScore(5);
                     Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
 
                 }
             }
-            else if (hit.transform.tag.Equals("rotating enemy"))
-            {
-                if (health.getRotatingEnemyHealth() > 50)
-                {
-                    health.decRotatingEnemyHealth(50);
-
-                }
-                else
-                {
-                    health.decRotatingEnemyHealth(50);
-                    Destroy(hit.transform.gameObject);
-                    health.incScore(5);
-                    Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
-
-                }
-            }
+            
 
             else if (hit.transform.tag.Equals("health_drone"))
             {
@@ -97,6 +92,7 @@ public class gun : MonoBehaviour
                 Destroy(hit.transform.gameObject);
                 health.incHealth(30);
                 health.incScore(5);
+                //health_plus_rotation = new Vector3(hit.transform.rotation.x, (zeroPos - transform.position).normalized.y, hit.transform.rotation.z);
                 Instantiate(health_plus, hit.transform.position, hit.transform.rotation); // health code line
                 Instantiate(health_explosionEffect, hit.transform.position, hit.transform.rotation);
             }
