@@ -3395,7 +3395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.3, y: -43.9}
+  m_AnchoredPosition: {x: 19, y: -38.2}
   m_SizeDelta: {x: 168.2914, y: 51.26181}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &336255571
@@ -7864,7 +7864,7 @@ MonoBehaviour:
   rotationSpeed: 20
   rotatingPrefab: {fileID: 4618745952833464478, guid: 790cd41472eef42dea96a377b5738668, type: 3}
   firstCreateTime: 4
-  createDelay: 18
+  createDelay: 25
 --- !u!4 &811863527
 Transform:
   m_ObjectHideFlags: 0
@@ -22592,7 +22592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30.7, y: -22}
+  m_AnchoredPosition: {x: 18.7, y: -16.8}
   m_SizeDelta: {x: 150, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8034321612627300553
