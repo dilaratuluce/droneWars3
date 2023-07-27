@@ -8,16 +8,19 @@ public class manager : MonoBehaviour
 {
     private int health;
     private int score;
+    private int combo;
     //private int enemy_health;
     //private int rotating_enemy_health;
     //[SerializeField] Slider rotating_enemy_slider;
-    [SerializeField] Slider enemy_slider;
-    [SerializeField] Slider slider;
-    public TMP_Text scoreText;
+    [SerializeField] private Slider enemy_slider;
+    [SerializeField] private Slider slider;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text comboText;
 
     void Start()
     {
         //enemy_slider.maxValue = 100;
+        combo = 0;
         slider.maxValue = 100;
         //rotating_enemy_slider.maxValue = 100;
         //setRotatingEnemyHealth(100);
@@ -70,6 +73,24 @@ public class manager : MonoBehaviour
         setEnemyHealth(enemy_health - val);
         return enemy_health;
     }*/
+    public int getCombo()
+    {
+        return combo;
+    }
+    public int incCombo()
+    {
+        combo++;
+        comboText.text = "Combo: " + combo;
+        return combo;
+
+    }
+    public int setCombo()
+    {
+        combo = 0;
+        comboText.text = "Combo: " + combo;
+        return combo;
+    }
+
     public float getHealth()
     {
         return health;
@@ -86,9 +107,9 @@ public class manager : MonoBehaviour
     }
     void setHealth(int val)
     {
-        if(val >= 100)
+        if (val >= 100)
         {
-            health = 100;            
+            health = 100;
         }
         else
         {
@@ -110,6 +131,6 @@ public class manager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }
