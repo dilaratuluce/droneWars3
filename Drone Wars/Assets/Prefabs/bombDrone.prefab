@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 688531249965125778}
   m_Layer: 0
   m_Name: bombDrone
-  m_TagString: rare_drone
+  m_TagString: bomb_drone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5397794110519671158
 MeshFilter:

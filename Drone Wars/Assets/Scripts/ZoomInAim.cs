@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ZoomInAim : MonoBehaviour
 {
-    public int zoom = 20;
-    public int normal = 60;
-    public float smooth = 5;
+    [SerializeField] private int zoom = 20;
+    [SerializeField] private int normal = 60;
+    [SerializeField] private float smooth = 5;
 
     private bool isZoomed = false;
     private bool notZoomed = true;

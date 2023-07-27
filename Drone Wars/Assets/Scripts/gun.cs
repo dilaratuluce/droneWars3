@@ -32,6 +32,7 @@ public class gun : MonoBehaviour
     [SerializeField] float bombRadius;
     public Collider[] bombColliders;
     int bombedObjectNum = 0;
+    Combo combo;
 
 
 
@@ -39,6 +40,7 @@ public class gun : MonoBehaviour
     {
         health = FindObjectOfType<manager>();
         AI_drone = FindObjectOfType<AI_drone>(); //doo
+        combo = FindObjectOfType<Combo>();
     }
 
     // Update is called once per frame
@@ -73,20 +75,27 @@ public class gun : MonoBehaviour
         // shoot out our ray and checking if we hit something
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-                
+
             //StartCoroutine(SpawnTrail(trail,hit));
             //LastShootTime = Time.time;
 
             if (hit.transform.tag.Equals("drone"))
-            {              
+            {
                 Destroy(hit.transform.gameObject);
-                health.incScore(5);
                 Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+                health.incCombo();
+                if (health.getCombo() > 5) health.incScore(10);
+                else if (health.getCombo() == 5)
+                {
+                    combo.Open();
+                    health.incScore(10);
+                }
+                else health.incScore(5);
             }
             else if (hit.transform.tag.Equals("enemy"))
             {
                 EnemyHealthSlider = hit.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-                if(EnemyHealthSlider.value > 25)
+                if (EnemyHealthSlider.value > 25)
                 {
                     EnemyHealthSlider.value -= 25;
 
@@ -95,8 +104,15 @@ public class gun : MonoBehaviour
                 {
                     EnemyHealthSlider.value = 0;
                     hit.transform.gameObject.SetActive(false);
-                    health.incScore(5);
                     Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+                    health.incCombo();
+                    if (health.getCombo() > 5) health.incScore(10);
+                    else if (health.getCombo() == 5)
+                    {
+                        combo.Open();
+                        health.incScore(10);
+                    }
+                    else health.incScore(5);
 
                 }
                 StartCoroutine(ReactivateEnemyDrone(hit.transform.gameObject));
@@ -109,7 +125,7 @@ public class gun : MonoBehaviour
                 {
                     AI_drone = hit.transform.gameObject.GetComponent<AI_drone>();
                     EnemyHealthSlider.value -= 25;
-                    AI_drone.changePosBool(true); 
+                    AI_drone.changePosBool(true);
                     //Debug.Log("changePos is true");
 
                 }
@@ -117,8 +133,15 @@ public class gun : MonoBehaviour
                 {
                     EnemyHealthSlider.value = 0;
                     Destroy(hit.transform.gameObject);
-                    health.incScore(5);
                     Instantiate(explosionEffect, hit.transform.position, hit.transform.rotation);
+                    health.incCombo();
+                    if (health.getCombo() > 5) health.incScore(10);
+                    else if (health.getCombo() == 5)
+                    {
+                        combo.Open();
+                        health.incScore(10);
+                    }
+                    else health.incScore(5);
 
                 }
 
@@ -130,11 +153,18 @@ public class gun : MonoBehaviour
                 Debug.Log("health drone shooted");
                 hit.transform.gameObject.SetActive(false);
                 health.incHealth(30);
-                health.incScore(5);
                 //health_plus_rotation = new Vector3(hit.transform.rotation.x, (zeroPos - transform.position).normalized.y, hit.transform.rotation.z);
                 Instantiate(health_plus, hit.transform.position, hit.transform.rotation); // health code line
                 Instantiate(health_explosionEffect, hit.transform.position, hit.transform.rotation);
                 StartCoroutine(ReactivateHealthDrone(hit.transform.gameObject));
+                health.incCombo();
+                if (health.getCombo() > 5) health.incScore(10);
+                else if (health.getCombo() == 5)
+                {
+                    combo.Open();
+                    health.incScore(10);
+                }
+                else health.incScore(5);
             }
             else if (hit.transform.tag.Equals("bomb_drone"))
             {
@@ -150,10 +180,19 @@ public class gun : MonoBehaviour
                     bombedObjectNum++;
                 }
                 //Destroy(hit.transform.gameObject);
-                health.incScore(5 * bombedObjectNum);
                 Instantiate(bomb_explosionEffect, hit.transform.position, hit.transform.rotation);
+                health.incCombo();
+                if (health.getCombo() > 5) health.incScore(10);
+                else if (health.getCombo() == 5)
+                {
+                    combo.Open();
+                    health.incScore(10 * bombedObjectNum);
+                }
+                else health.incScore(5 * bombedObjectNum);
             }
+            else health.setCombo();
         }
+        else health.setCombo();
 
     }
                    
