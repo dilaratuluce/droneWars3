@@ -6959,10 +6959,13 @@ MonoBehaviour:
   fpsCam: {fileID: 963194227}
   explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   health_explosionEffect: {fileID: 889476877426647933, guid: 1fe312352209b437e89173064fe121b3, type: 3}
+  bomb_explosionEffect: {fileID: 455373608662378873, guid: 67beb2b6045d9494ea7e475bb4319b18, type: 3}
   BulletSpawnPoint: {fileID: 983524798}
   ImpactParticleSystem: {fileID: 537733569}
   health_plus: {fileID: 8804631162203597863, guid: 33ecea23f0f2d418abe178988b30ac23, type: 3}
   AI_drone: {fileID: 0}
+  bombRadius: 10
+  bombColliders: []
 --- !u!1 &744753025
 GameObject:
   m_ObjectHideFlags: 0
@@ -21069,7 +21072,7 @@ GameObject:
   - component: {fileID: 1991964878}
   - component: {fileID: 1991964877}
   m_Layer: 0
-  m_Name: rare drone creator
+  m_Name: bomb drone creator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21089,7 +21092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runningPrefab: {fileID: 7659589585157980989, guid: da0c18ba2dd2e4dc78ddb8312bcfce5c, type: 3}
   firstCreateTime: 0
-  createDelay: 30
+  createDelay: 5
 --- !u!4 &1991964878
 Transform:
   m_ObjectHideFlags: 0

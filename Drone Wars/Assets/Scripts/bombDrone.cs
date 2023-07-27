@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class rareDrone : MonoBehaviour
+public class bombDrone : MonoBehaviour
 {
     Vector3 startPosition;
     Vector3 endPosition;
-    float desiredDuration = 1f;
+    float desiredDuration = 5f;
     float elapsedTime;
 
     bool comingToRight;
@@ -14,8 +14,6 @@ public class rareDrone : MonoBehaviour
     bool round1, round2, round3, round4, round5;
     Vector3 destroyPosition;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         startPosition = transform.position;
@@ -46,13 +44,11 @@ public class rareDrone : MonoBehaviour
                 elapsedTime = 0;
                 if (round1)
                 {
-                    Debug.Log("round1 bitti");
                     round1 = false;
                     round2 = true;
                 }
                 else
                 {
-                    Debug.Log("round3 bitti");
                     round3 = false;
                     round4 = true;
                 }
@@ -72,13 +68,11 @@ public class rareDrone : MonoBehaviour
                 elapsedTime = 0;
                 if (round2)
                 {
-                    Debug.Log("round2 bitti");
                     round2 = false;
                     round3 = true;
                 }
                 else
                 {
-                    Debug.Log("round4 bitti");
                     round4 = false;
                     round5 = true;
                 }
@@ -93,7 +87,6 @@ public class rareDrone : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, destroyPosition, percentageComplete);
             if (Mathf.Abs(transform.position.y - destroyPosition.y) <= 0.1)
             {
-                Debug.Log("round5 bitti");
                 Destroy(this.gameObject);
             }
         }

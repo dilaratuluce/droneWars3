@@ -12,9 +12,10 @@ public class gun : MonoBehaviour
     manager health;
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private GameObject health_explosionEffect;
+    [SerializeField] private GameObject bomb_explosionEffect;
     //[SerializeField] private ParticleSystem muzzle_flash;
-   // [SerializeField]
-   // private Vector3 BulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
+    // [SerializeField]
+    // private Vector3 BulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [SerializeField] private Transform BulletSpawnPoint;
     [SerializeField]
     private ParticleSystem ImpactParticleSystem;
@@ -23,12 +24,15 @@ public class gun : MonoBehaviour
     //private float LastShootTime;
 
     [SerializeField] private GameObject health_plus; // health code line
-    //Vector3 health_plus_rotation;
-    //Vector3 zeroPos = new Vector3(0,0,0);
 
     Slider EnemyHealthSlider;
 
     [SerializeField] AI_drone AI_drone; // doo
+
+    [SerializeField] float bombRadius;
+    public Collider[] bombColliders;
+    int bombedObjectNum = 0;
+
 
 
     void Start()
@@ -132,31 +136,28 @@ public class gun : MonoBehaviour
                 Instantiate(health_explosionEffect, hit.transform.position, hit.transform.rotation);
                 StartCoroutine(ReactivateHealthDrone(hit.transform.gameObject));
             }
+            else if (hit.transform.tag.Equals("bomb_drone"))
+            {
+                bombColliders = Physics.OverlapSphere(hit.transform.position, bombRadius);
+                bombedObjectNum = 0;
+                foreach (Collider collider in bombColliders)
+                {
+                    if (collider.gameObject.tag.Equals("health_drone"))
+                    {
+                        health.incHealth(30);
+                    }
+                    Destroy(collider.gameObject);
+                    bombedObjectNum++;
+                }
+                //Destroy(hit.transform.gameObject);
+                health.incScore(5 * bombedObjectNum);
+                Instantiate(bomb_explosionEffect, hit.transform.position, hit.transform.rotation);
+            }
         }
 
-        }
-        /*else
-        {
-            //Debug.Log("nom nom");
-            trail.transform.position = BulletSpawnPoint.forward;
-        }*/
-        
-            
-    }/*
-    private IEnumerator SpawnTrail(TrailRenderer trail, RaycastHit hit)
-    {
-        float time = 0;
-        
-        while(time < 1)
-        {
-            trail.transform.position = Vector3.Lerp(BulletSpawnPoint.position,hit.point,time);
-            time += Time.deltaTime / trail.time;
-            yield return null;
-        }
-        trail.transform.position = hit.point;
-        Instantiate(ImpactParticleSystem, hit.point, Quaternion.LookRotation(hit.normal));
-
-    }*/
+    }
+                   
+}
 
 
         

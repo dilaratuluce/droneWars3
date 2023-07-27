@@ -14,6 +14,7 @@ TagManager:
   - enemy
   - rotating enemy
   - AI_drone
+  - bomb_drone
   layers:
   - Default
   - TransparentFX

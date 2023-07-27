@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 7952389369842121481}
   - component: {fileID: 688531249965125778}
   m_Layer: 0
-  m_Name: rareDrone
-  m_TagString: drone
+  m_Name: bombDrone
+  m_TagString: rare_drone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
