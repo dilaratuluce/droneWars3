@@ -64,47 +64,5 @@ public class Player_movement : MonoBehaviour
             transform.position = Vector3.Lerp(crouchScale, startScale, percentageComplete); // crouching code ends
         }
 
-        /*if (Input.GetKey(KeyCode.Q))
-        {
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z + amt);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * slerpAmt);
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            Quaternion newRot = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, transform.localRotation.z - amt);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, newRot, Time.deltaTime * slerpAmt);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Slerp(transform.rotation, initialRotation, Time.deltaTime * slerpAmt);
-        }*/
-
-        /*Bend.localRotation = Quaternion.Euler(0,0,zRot);
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Debug.Log("bending");
-            zRot = Mathf.Lerp(zRot, 15.0f, 5f * Time.deltaTime);
-            isRotate = true;
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            Debug.Log("bending");
-            zRot = Mathf.Lerp(zRot, -15.0f, 5f * Time.deltaTime);
-            isRotate = true;
-        }
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            Debug.Log("not bending");
-            isRotate = false;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            Debug.Log("not bending");
-            isRotate = false;
-        }
-        if (!isRotate)
-        {
-            zRot = Mathf.Lerp(zRot,0.0f, 5f * Time.deltaTime);
-        }*/
     }
 }

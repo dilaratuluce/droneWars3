@@ -33,4 +33,8 @@ public class ZoomInAim : MonoBehaviour
             GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
         }
     }
+    /*The isZoomed and notZoomed variables are used to toggle between zoomed and normal states. 
+      When the right mouse button is pressed down, the camera switches to zoomed mode (isZoomed becomes true),
+      and when the right mouse button is released, it goes back to the normal mode (notZoomed becomes true). 
+      The smooth variable controls how fast the zoom transitions happen, as it affects the speed of the interpolation.*/
 }

@@ -3,14 +3,12 @@ using System.Collections;
 
 public class ShotBehavior : MonoBehaviour
 {
-
-    [SerializeField] private Vector3 m_target;
-    [SerializeField] private GameObject collisionExplosion;
+    //This script represents the behavior of the shots (lasers) fired by the Ray Gun.
+    [SerializeField] private Vector3 m_target; //target position of the shot
+    //[SerializeField] private GameObject collisionExplosion;
     [SerializeField] private float speed;
 
 
-
-    // Update is called once per frame
     void Update()
     {
         transform.position += transform.forward * Time.deltaTime * 300f;// The step size is equal to speed times frame time.
@@ -18,7 +16,7 @@ public class ShotBehavior : MonoBehaviour
 
         float step = speed * Time.deltaTime;
 
-        if (m_target != null)
+        if (m_target != null) // if we hit something
         {
             if (transform.position == m_target)
             {
@@ -34,6 +32,7 @@ public class ShotBehavior : MonoBehaviour
     {
         m_target = target;
     }
+    //When a ray hits an object, the RayGun.cs script calls this method to set the hit point as the target position for the shot.
 
 
 

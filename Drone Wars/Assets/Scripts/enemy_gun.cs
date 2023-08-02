@@ -6,11 +6,10 @@ public class enemy_gun : MonoBehaviour
 {
     referancePoint shootingPosition;
     //[SerializeField] private Vector3 referenceObjectPoint;
-
     [SerializeField] private float timer = 5;
     private float bullet_time;
-    [SerializeField] private GameObject enemy_bullet;
-    [SerializeField] private Transform enemy_spawn_point;
+    [SerializeField] private GameObject enemy_bullet; //prefab for enemy bullets
+    [SerializeField] private Transform enemy_spawn_point; 
     [SerializeField] private float enemy_speed;
 
     void Start()
@@ -22,6 +21,7 @@ public class enemy_gun : MonoBehaviour
     {
 
         transform.LookAt(shootingPosition.getPosition());
+        //this is used to get the player's position, and the enemy gun continuously rotates towards that position
 
         ShootAtPlayer();
 

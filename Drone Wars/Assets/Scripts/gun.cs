@@ -14,21 +14,13 @@ public class gun : MonoBehaviour
     [SerializeField] private GameObject health_explosionEffect;
     [SerializeField] private GameObject bomb_explosionEffect;
     //[SerializeField] private ParticleSystem muzzle_flash;
-    // [SerializeField]
-    // private Vector3 BulletSpreadVariance = new Vector3(0.1f, 0.1f, 0.1f);
     [SerializeField] private Transform BulletSpawnPoint;
-    [SerializeField]
-    private ParticleSystem ImpactParticleSystem;
-    //[SerializeField] TrailRenderer BulletTrail;
-    //private float ShootDelay = 0.1f;
-    //private float LastShootTime;
-
+    [SerializeField] private ParticleSystem ImpactParticleSystem;
+    //[SerializeField] private float minX, maxX, minY, maxY;
+    //Vector3 rot;
     [SerializeField] private GameObject health_plus; // health code line
-
     Slider EnemyHealthSlider;
-
     [SerializeField] AI_drone AI_drone; // doo
-
     [SerializeField] float bombRadius;
     public Collider[] bombColliders;
     int bombedObjectNum = 0;
@@ -49,8 +41,14 @@ public class gun : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+           //muzzle_flash.Play();
 
         }
+       /* rot = fpsCam.transform.localRotation.eulerAngles;
+        if (rot.x != 0 || rot.y != 0 )
+        {
+            fpsCam.transform.localRotation = Quaternion.Slerp(fpsCam.transform.localRotation,Quaternion.Euler(0,0,0),Time.deltaTime*3);
+        }*/
     }
     IEnumerator ReactivateHealthDrone(GameObject healthDrone)
     {
@@ -64,20 +62,23 @@ public class gun : MonoBehaviour
         EnemyHealthSlider.value = 100;
         enemyDrone.SetActive(true);
     }
+    /*void recoil()
+    {
+        float recX = Random.Range(minX,maxX);
+        float recY = Random.Range(minY,maxY);
+        fpsCam.transform.localRotation = Quaternion.Euler(rot.x - recY, rot.y + recX, rot.z);
+
+    }*/
 
     void Shoot()
     {
 
         // Storing info about what we hit with our ray
-        //TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
         RaycastHit hit;
-        //muzzle_flash.Play();
+       // recoil();
         // shoot out our ray and checking if we hit something
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-
-            //StartCoroutine(SpawnTrail(trail,hit));
-            //LastShootTime = Time.time;
 
             if (hit.transform.tag.Equals("drone"))
             {
@@ -182,7 +183,7 @@ public class gun : MonoBehaviour
                 //Destroy(hit.transform.gameObject);
                 Instantiate(bomb_explosionEffect, hit.transform.position, hit.transform.rotation);
                 health.incCombo();
-                if (health.getCombo() > 5) health.incScore(10);
+                if (health.getCombo() > 5) health.incScore(10*bombedObjectNum);
                 else if (health.getCombo() == 5)
                 {
                     combo.Open();
