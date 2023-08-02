@@ -23,7 +23,7 @@ public class decHealthScript : MonoBehaviour
 
     void Update()
     {
-        if(health.getHealth() <= 0)
+        if(health.getHealth() <= 0) // player is dead
         {
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

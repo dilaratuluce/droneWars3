@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,17 +15,14 @@ public class gun : MonoBehaviour
     //[SerializeField] private ParticleSystem muzzle_flash;
     [SerializeField] private Transform BulletSpawnPoint;
     [SerializeField] private ParticleSystem ImpactParticleSystem;
-    //[SerializeField] private float minX, maxX, minY, maxY;
     //Vector3 rot;
     [SerializeField] private GameObject health_plus; // health code line
     Slider EnemyHealthSlider;
     [SerializeField] AI_drone AI_drone; // doo
     [SerializeField] float bombRadius;
-    public Collider[] bombColliders;
+    [SerializeField] Collider[] bombColliders;
     int bombedObjectNum = 0;
     Combo combo;
-
-
 
     void Start()
     {
@@ -127,7 +123,6 @@ public class gun : MonoBehaviour
                     AI_drone = hit.transform.gameObject.GetComponent<AI_drone>();
                     EnemyHealthSlider.value -= 25;
                     AI_drone.changePosBool(true);
-                    //Debug.Log("changePos is true");
 
                 }
                 else
@@ -154,7 +149,6 @@ public class gun : MonoBehaviour
                 Debug.Log("health drone shooted");
                 hit.transform.gameObject.SetActive(false);
                 health.incHealth(30);
-                //health_plus_rotation = new Vector3(hit.transform.rotation.x, (zeroPos - transform.position).normalized.y, hit.transform.rotation.z);
                 Instantiate(health_plus, hit.transform.position, hit.transform.rotation); // health code line
                 Instantiate(health_explosionEffect, hit.transform.position, hit.transform.rotation);
                 StartCoroutine(ReactivateHealthDrone(hit.transform.gameObject));
@@ -180,7 +174,6 @@ public class gun : MonoBehaviour
                     Destroy(collider.gameObject);
                     bombedObjectNum++;
                 }
-                //Destroy(hit.transform.gameObject);
                 Instantiate(bomb_explosionEffect, hit.transform.position, hit.transform.rotation);
                 health.incCombo();
                 if (health.getCombo() > 5) health.incScore(10*bombedObjectNum);

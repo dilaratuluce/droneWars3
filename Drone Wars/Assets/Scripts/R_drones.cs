@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class R_drones : MonoBehaviour
 {
+    // R_drones script instantiates running drones and running drones' move is coded in RunnningDrone script
+
     [SerializeField] private GameObject runningPrefab;
     [SerializeField] float firstCreateTime;
     [SerializeField] float createDelay;
@@ -18,15 +20,6 @@ public class R_drones : MonoBehaviour
     void CreateObject()
     {
         Instantiate(runningPrefab, transform.position, Quaternion.identity);
-        /*if (runningPrefab.tag.Equals("health_drone") && health.getHealth()<=50)
-        {
-            Instantiate(runningPrefab, transform.position, Quaternion.identity);
-        }
-        else if (!runningPrefab.tag.Equals("health_drone"))
-        {
-            Instantiate(runningPrefab, transform.position, Quaternion.identity);
-        }*/
-
     }
 
 }
