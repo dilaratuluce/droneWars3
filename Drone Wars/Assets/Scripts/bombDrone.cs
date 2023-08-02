@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class bombDrone : MonoBehaviour
 {
-    Vector3 startPosition;
+    //bomb drone has 5 consecutive lerps named round1, round2, round3, round4, round5
+
+    //lerp variables:
+    Vector3 startPosition; 
     Vector3 endPosition;
     float desiredDuration = 5f;
     float elapsedTime;
@@ -28,7 +31,7 @@ public class bombDrone : MonoBehaviour
 
     void Update()
     {
-        if (comingToRight && (round1 || round3))
+        if (comingToRight && (round1 || round3)) // drone is moving right
         {
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / desiredDuration;
@@ -54,7 +57,7 @@ public class bombDrone : MonoBehaviour
                 }
             }
         }
-        else if(!comingToRight && (round2 || round4))
+        else if(!comingToRight && (round2 || round4)) // drone is moving left
         {
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / desiredDuration;
@@ -78,7 +81,7 @@ public class bombDrone : MonoBehaviour
                 }
             }
         }
-        else if(comingToRight && round5)// comingToRight is true and round5 (last round)
+        else if(comingToRight && round5) // drone is moving right for the last time, comingToRight is true and it is round5 (last round)
         {
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / desiredDuration;
@@ -92,7 +95,7 @@ public class bombDrone : MonoBehaviour
         }
         else
         {
-            Debug.Log("terslik oldu");
+            Debug.Log("something went wrong");
         }
 
 

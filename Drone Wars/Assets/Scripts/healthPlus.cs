@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class healthPlus : MonoBehaviour
 {
-    Vector3 startPosition;
+    //healthPlus have to lerp movements, first lerp is a 3 unit upwards move, second one is towards the player 
+
+    Vector3 startPosition; // first lerp variabbles
     Vector3 endPosition;
     float desiredDuration = 1f;
     float elapsedTime;
 
-    bool comingToPlayer;
+    bool comingToPlayer; // second lerp variables
     Vector3 comingStartPosition;
     Vector3 comingEndPosition;
     float comingDesiredDuration = 0.5f;
     float comingElapsedTime;
     referancePoint comingPosition;
-    Vector3 comingVector;
 
-    // Start is called before the first frame update
     void Start()
     {
         startPosition = transform.position;
@@ -36,15 +36,13 @@ public class healthPlus : MonoBehaviour
 
             transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
 
-            if (transform.localPosition.y >= startPosition.y + 3 - 0.1)
+            if (transform.localPosition.y >= startPosition.y + 3 - 0.1) // drone is close enough to startPosition.y+3
             {
-                //Destroy(this.gameObject);
                 comingToPlayer = true;
                 comingStartPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                 comingEndPosition = new Vector3();
                 comingElapsedTime = 0;
                 comingPosition = FindObjectOfType<referancePoint>();
-                comingVector = comingPosition.getPosition();
             }
         }
         else

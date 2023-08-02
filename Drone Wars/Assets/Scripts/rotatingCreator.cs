@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class rotatingCreator : MonoBehaviour
 {
+    // rotatingCreator is a script attached to a blank object which rotates, and creates rotating drones, rotating drones' movements is done by otomaticly in this script
     [SerializeField] private float rotationSpeed; // rotate around itself
 
     [SerializeField] private GameObject rotatingPrefab;

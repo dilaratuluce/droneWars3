@@ -12,7 +12,7 @@ public class Player_movement : MonoBehaviour
     Vector3 crouchScale; ///= new Vector3(2, 1, 2);
     Vector3 startScale;
     float crouchDuration = 0.3f;
-    float elapsedTime; // crounhing code ends
+    float elapsedTime; // crocnhing code ends
 
 
     private void Awake()

@@ -16,7 +16,6 @@ public class enemy_bullet : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("player") || other.gameObject.tag.Equals("unshootable"))
         {
-           // Debug.Log("Player");
             gameObject.SetActive(false);
         }
     }
