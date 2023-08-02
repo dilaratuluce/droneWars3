@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Combo : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // animation of combo canvas
     void Start()
     {
         transform.localScale = Vector2.zero;

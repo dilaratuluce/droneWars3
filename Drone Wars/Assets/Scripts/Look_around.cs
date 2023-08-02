@@ -13,7 +13,6 @@ public class MouseLook : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
        // LockUnlockCursor();
@@ -23,22 +22,6 @@ public class MouseLook : MonoBehaviour
         }
 
     }
-    /*void LockUnlockCursor()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-    }*/
     void lookAround()
     {
         current_mouse_look = new Vector2(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"));
