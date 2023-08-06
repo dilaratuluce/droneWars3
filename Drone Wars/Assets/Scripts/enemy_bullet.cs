@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class enemy_bullet : MonoBehaviour
 {
-
+    // bütün oyunu çerçevele, bullet collider'a çarpınca kaybolsun
     [SerializeField] private float life = 3;
     private void Awake()
     {

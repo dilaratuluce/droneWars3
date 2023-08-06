@@ -15,7 +15,7 @@ public class decHealthScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("enemy_bullet"))
+        if (other.gameObject.tag.Equals("enemy_bullet")) // tag holder cs dosyası oluştur, oradan çek, tagHolder.enemyBullet gibi çek
         {
             health.decHealth(5);
         }

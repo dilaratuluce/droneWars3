@@ -42,7 +42,7 @@ public class healthPlus : MonoBehaviour
                 comingStartPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                 comingEndPosition = new Vector3();
                 comingElapsedTime = 0;
-                comingPosition = FindObjectOfType<referancePoint>();
+                comingPosition = FindObjectOfType<referancePoint>(); // singleton game manager'dan alsın player konumunu
             }
         }
         else
