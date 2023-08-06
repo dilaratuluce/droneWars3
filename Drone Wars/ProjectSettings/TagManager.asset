@@ -15,6 +15,10 @@ TagManager:
   - rotating enemy
   - AI_drone
   - bomb_drone
+  - rotating_drone
+  - running_health_drone
+  - running_drone
+  - rotating_enemy
   layers:
   - Default
   - TransparentFX

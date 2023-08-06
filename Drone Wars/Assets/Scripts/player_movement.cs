@@ -11,8 +11,8 @@ public class Player_movement : MonoBehaviour
     bool isCrouching = false; // crouching code starts
     Vector3 crouchScale; ///= new Vector3(2, 1, 2);
     Vector3 startScale;
-    float crouchDuration = 0.3f;
-    float elapsedTime; // crocnhing code ends
+    float crouchDuration = 0.3f; // satanding position to crouch position time
+    float elapsedTime; // crouching code ends
 
 
     private void Awake()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemy_gun : MonoBehaviour
 {
@@ -12,9 +13,14 @@ public class enemy_gun : MonoBehaviour
     [SerializeField] private Transform enemy_spawn_point; 
     [SerializeField] private float enemy_speed;
 
-    void Start()
+    Slider EnemyHealthSlider;
+
+    void OnEnable()
     {
         shootingPosition = FindObjectOfType<referancePoint>();
+
+        EnemyHealthSlider = gameObject.GetComponentsInChildren<Slider>()[0];
+        EnemyHealthSlider.value = 100;
     }
 
     private void Update()
@@ -32,7 +38,7 @@ public class enemy_gun : MonoBehaviour
         if (bullet_time > 0) return;
         bullet_time = timer;
         GameObject bulletobj = Instantiate(enemy_bullet, enemy_spawn_point.transform.position, enemy_spawn_point.transform.rotation) as GameObject;
-        Rigidbody bulletRig = bulletobj.GetComponent<Rigidbody>();
+        Rigidbody bulletRig = bulletobj.GetComponent<Rigidbody>(); // bullet object'in scriptinde olsun, rigitbody çekme sürekli
         bulletRig.AddForce(bulletRig.transform.forward * enemy_speed);
 
     }

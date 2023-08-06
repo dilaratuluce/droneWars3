@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AI_drone : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class AI_drone : MonoBehaviour
 
     bool startEndDetermined = false;
 
+    Slider EnemyHealthSlider;
 
-    void Start()
+
+    void OnEnable()
     {
         startPosition = new Vector3(Random.Range(5, 40), Random.Range(13, 25), Random.Range(25, 45));
         gameObject.transform.position = startPosition;
+
+        EnemyHealthSlider = gameObject.GetComponentsInChildren<Slider>()[0];
+        EnemyHealthSlider.value = 100;
+
     }
 
     public void changePosBool(bool boole)

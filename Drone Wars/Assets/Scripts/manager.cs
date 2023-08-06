@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class manager : MonoBehaviour
+public class manager : MonoBehaviour // mage game manager singleton
 {
     private int health;
     private int score;

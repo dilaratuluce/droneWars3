@@ -17,9 +17,17 @@ public class bombDrone : MonoBehaviour
     bool round1, round2, round3, round4, round5;
     Vector3 destroyPosition;
 
-    void Start()
+    poolMechanism poolMech;
+    public GameObject parentObject;
+
+
+    void OnEnable()
     {
-        startPosition = transform.position;
+        poolMech = FindObjectOfType<poolMechanism>();
+
+        startPosition = new Vector3(-100, Random.Range(30, 50), Random.Range(10, 25));
+        transform.position = startPosition;
+
         endPosition = new Vector3(Random.Range(35, 50), Random.Range(13, 25), Random.Range(25, 45));
 
         elapsedTime = 0;
@@ -40,7 +48,6 @@ public class bombDrone : MonoBehaviour
 
             if (Mathf.Abs(transform.position.y - endPosition.y) <= 0.1) // localPosition??
             {
-                //Destroy(this.gameObject);
                 comingToRight = false;
                 startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
                 endPosition = new Vector3(Random.Range(-35, -50), Random.Range(13, 25), Random.Range(25, 45));
@@ -90,7 +97,7 @@ public class bombDrone : MonoBehaviour
             transform.position = Vector3.Lerp(startPosition, destroyPosition, percentageComplete);
             if (Mathf.Abs(transform.position.y - destroyPosition.y) <= 0.1)
             {
-                Destroy(this.gameObject);
+                poolMech.enqueue(gameObject, parentObject);
             }
         }
         else
