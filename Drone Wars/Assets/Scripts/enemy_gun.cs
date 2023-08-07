@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class enemy_gun : MonoBehaviour
 {
-    referancePoint shootingPosition;
+
     //[SerializeField] private Vector3 referenceObjectPoint;
     [SerializeField] private float timer = 5;
     private float bullet_time;
@@ -17,16 +17,15 @@ public class enemy_gun : MonoBehaviour
 
     void OnEnable()
     {
-        shootingPosition = FindObjectOfType<referancePoint>();
 
         EnemyHealthSlider = gameObject.GetComponentsInChildren<Slider>()[0];
-        EnemyHealthSlider.value = 100;
+        EnemyHealthSlider.value = gameParameters.enemy_health_max;
     }
 
     private void Update()
     {
 
-        transform.LookAt(shootingPosition.getPosition());
+        transform.LookAt(manager.Instance.getPosition());
         //this is used to get the player's position, and the enemy gun continuously rotates towards that position
 
         ShootAtPlayer();

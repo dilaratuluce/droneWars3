@@ -28,7 +28,7 @@ public class bombDrone : MonoBehaviour
         startPosition = new Vector3(-100, Random.Range(30, 50), Random.Range(10, 25));
         transform.position = startPosition;
 
-        endPosition = new Vector3(Random.Range(35, 50), Random.Range(13, 25), Random.Range(25, 45));
+        endPosition = new Vector3(Random.Range(gameParameters.bomb_drone_x1, gameParameters.bomb_drone_x2), Random.Range(gameParameters.bomb_drone_y1, gameParameters.bomb_drone_y2), Random.Range(gameParameters.bomb_drone_z1, gameParameters.bomb_drone_z2));
 
         elapsedTime = 0;
         comingToRight = true;
@@ -46,11 +46,11 @@ public class bombDrone : MonoBehaviour
 
             transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
 
-            if (Mathf.Abs(transform.position.y - endPosition.y) <= 0.1) // localPosition??
+            if (Mathf.Abs(transform.position.y - endPosition.y) <= gameParameters.bomb_drone_abs_limit) // localPosition??
             {
                 comingToRight = false;
                 startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                endPosition = new Vector3(Random.Range(-35, -50), Random.Range(13, 25), Random.Range(25, 45));
+                endPosition = new Vector3(Random.Range(-gameParameters.bomb_drone_x1, -gameParameters.bomb_drone_x2), Random.Range(gameParameters.bomb_drone_y1, gameParameters.bomb_drone_y2), Random.Range(gameParameters.bomb_drone_z1, gameParameters.bomb_drone_z2));
                 elapsedTime = 0;
                 if (round1)
                 {
@@ -70,11 +70,11 @@ public class bombDrone : MonoBehaviour
             float percentageComplete = elapsedTime / desiredDuration;
 
             transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
-            if (Mathf.Abs(transform.position.y - endPosition.y) <= 0.1)
+            if (Mathf.Abs(transform.position.y - endPosition.y) <= gameParameters.bomb_drone_abs_limit)
             {
                 comingToRight = true;
                 startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                endPosition = new Vector3(Random.Range(35, 50), Random.Range(13, 25), Random.Range(25, 45));
+                endPosition = new Vector3(Random.Range(gameParameters.bomb_drone_x1, gameParameters.bomb_drone_x2), Random.Range(gameParameters.bomb_drone_y1, gameParameters.bomb_drone_y2), Random.Range(gameParameters.bomb_drone_z1, gameParameters.bomb_drone_z2));
                 elapsedTime = 0;
                 if (round2)
                 {
@@ -95,7 +95,7 @@ public class bombDrone : MonoBehaviour
 
             destroyPosition = new Vector3(140, 10, 25);
             transform.position = Vector3.Lerp(startPosition, destroyPosition, percentageComplete);
-            if (Mathf.Abs(transform.position.y - destroyPosition.y) <= 0.1)
+            if (Mathf.Abs(transform.position.y - destroyPosition.y) <= gameParameters.bomb_drone_abs_limit)
             {
                 poolMech.enqueue(gameObject, parentObject);
             }

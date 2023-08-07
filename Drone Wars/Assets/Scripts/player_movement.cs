@@ -50,8 +50,8 @@ public class Player_movement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / crouchDuration;
 
-            startScale = new Vector3(transform.position.x, 2, transform.position.z);
-            crouchScale = new Vector3(transform.position.x, 1, transform.position.z);
+            startScale = new Vector3(transform.position.x, gameParameters.player_start_scale, transform.position.z);
+            crouchScale = new Vector3(transform.position.x, gameParameters.player_crouch_scale, transform.position.z);
             transform.position = Vector3.Lerp(startScale, crouchScale, percentageComplete);
         }
         else if (!isCrouching)
@@ -59,8 +59,8 @@ public class Player_movement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / crouchDuration;
 
-            startScale = new Vector3(transform.position.x, 2, transform.position.z);
-            crouchScale = new Vector3(transform.position.x, 1, transform.position.z);
+            startScale = new Vector3(transform.position.x, gameParameters.player_start_scale, transform.position.z);
+            crouchScale = new Vector3(transform.position.x, gameParameters.player_crouch_scale, transform.position.z);
             transform.position = Vector3.Lerp(crouchScale, startScale, percentageComplete); // crouching code ends
         }
 

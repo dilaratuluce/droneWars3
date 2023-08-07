@@ -30,7 +30,7 @@ public class RunningDrone : MonoBehaviour
 
         Invoke("Destroy", desiredDuration);
 
-        startPosition = new Vector3(-100, Random.Range(10, 25), Random.Range(20, 50));
+        startPosition = new Vector3(gameParameters.runnig_drone_x, Random.Range(gameParameters.runnig_drone_y1, gameParameters.runnig_drone_y2), Random.Range(gameParameters.runnig_drone_z1, gameParameters.runnig_drone_z2));
         //transform.position = startPosition;
         transform.position = new Vector3(-100, 15, 40);
         Debug.Log("working here");
@@ -41,7 +41,7 @@ public class RunningDrone : MonoBehaviour
 
     void Destroy()
     {
-        startPosition = new Vector3(-100, Random.Range(10, 25), Random.Range(20, 50));
+        startPosition = new Vector3(gameParameters.runnig_drone_x, Random.Range(gameParameters.runnig_drone_y1, gameParameters.runnig_drone_y2), Random.Range(gameParameters.runnig_drone_z1, gameParameters.runnig_drone_z2));
         transform.position = startPosition;
         poolMech.enqueue(gameObject, parentObject);
     }

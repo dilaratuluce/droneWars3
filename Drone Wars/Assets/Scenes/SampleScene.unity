@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6600,11 +6600,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4761823719329466, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
   m_PrefabInstance: {fileID: 537733567}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &537733569 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198910345005662624, guid: 44be68b4fc4366142a9cd1ae1f761ea4, type: 3}
-  m_PrefabInstance: {fileID: 537733567}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &538036939
 GameObject:
   m_ObjectHideFlags: 0
@@ -8733,7 +8728,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4166463531722480, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 983524798}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1294672646082164, guid: 8d43e76b346f2f8448846e9211629d15, type: 3}
       insertIndex: -1
@@ -8761,22 +8759,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38987a061efc96a48866e1f7cc2772f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 1000
-  fpsCam: {fileID: 963194227}
-  explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
-  health_explosionEffect: {fileID: 889476877426647933, guid: 1fe312352209b437e89173064fe121b3, type: 3}
-  bomb_explosionEffect: {fileID: 455373608662378873, guid: 67beb2b6045d9494ea7e475bb4319b18, type: 3}
+  aimColliderMask:
+    serializedVersion: 2
+    m_Bits: 1
+  muzzle_flash: {fileID: 1832123386}
+  bullet_prefab: {fileID: 6800839283865025213, guid: 3f7a00c3aad0ab64d9d85d37244ba6e6, type: 3}
   BulletSpawnPoint: {fileID: 983524798}
-  ImpactParticleSystem: {fileID: 537733569}
-  health_plus: {fileID: 8804631162203597863, guid: 33ecea23f0f2d418abe178988b30ac23, type: 3}
-  bombRadius: 10
-  bombColliders: []
-  runningDroneParent: {fileID: 140315929}
-  rotatingDroneParent: {fileID: 277279664}
-  rotatingEnemyDroneParent: {fileID: 811863525}
-  AIDroneParent: {fileID: 1639831774}
-  runningHealthDroneParent: {fileID: 1445482190}
-  bombDroneParent: {fileID: 1991964876}
 --- !u!1 &758623849
 GameObject:
   m_ObjectHideFlags: 0
@@ -10349,7 +10337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &861571102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11717,7 +11705,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 737821171}
-  - {fileID: 983524798}
   m_Father: {fileID: 1748061877}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12046,7 +12033,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 983524798}
-  - component: {fileID: 983524799}
   m_Layer: 0
   m_Name: bulletspawnpoint
   m_TagString: Untagged
@@ -12062,29 +12048,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983524797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.18628, y: -0.04821503, z: 0.1031}
-  m_LocalScale: {x: 0.43, y: 0.43, z: 0.43}
+  m_LocalPosition: {x: 0.024, y: 0.09949992, z: 2.05}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1832123384}
   - {fileID: 396670867}
-  m_Father: {fileID: 963194228}
+  m_Father: {fileID: 737821171}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &983524799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983524797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 350393af54f754a85973b20b09511e2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootRate: 0.1
-  m_shotPrefab: {fileID: 136330, guid: 9a0c3383523899643a8d0661cfaca4e4, type: 3}
 --- !u!1 &983989622
 GameObject:
   m_ObjectHideFlags: 0
@@ -12309,7 +12281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_RootOrder
@@ -12317,19 +12289,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0141
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12337,7 +12309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.028
+      value: -13.86
       objectReference: {fileID: 0}
     - target: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -18934,6 +18906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c10fc2ee146bad4ba3f0157359d67f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1160789244}
   enemy_slider: {fileID: 90182909}
   slider: {fileID: 4640011227848804343}
   scoreText: {fileID: 335501481}
@@ -19557,6 +19530,11 @@ MeshFilter:
 --- !u!4 &1832123384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4300533007854612, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
+  m_PrefabInstance: {fileID: 998367086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1832123386 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198234346748616026, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   m_PrefabInstance: {fileID: 998367086}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1839178997
