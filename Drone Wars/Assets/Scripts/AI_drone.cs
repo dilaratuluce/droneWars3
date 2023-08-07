@@ -20,11 +20,11 @@ public class AI_drone : MonoBehaviour
 
     void OnEnable()
     {
-        startPosition = new Vector3(Random.Range(5, 40), Random.Range(13, 25), Random.Range(25, 45));
+        startPosition = new Vector3(Random.Range(gameParameters.AI_drone_x1, gameParameters.AI_drone_x2), Random.Range(gameParameters.AI_drone_y1, gameParameters.AI_drone_y2), Random.Range(gameParameters.AI_drone_z1, gameParameters.AI_drone_z2));
         gameObject.transform.position = startPosition;
 
         EnemyHealthSlider = gameObject.GetComponentsInChildren<Slider>()[0];
-        EnemyHealthSlider.value = 100;
+        EnemyHealthSlider.value = gameParameters.enemy_health_max;
 
     }
 
@@ -39,11 +39,11 @@ public class AI_drone : MonoBehaviour
         startPosition = transform.position;
         if (transform.position.x < 0) // if drone is on the left, it should go to right, else it should go to left
         {
-            endPosition = new Vector3(Random.Range(5, 40), Random.Range(13, 25), Random.Range(25, 45));
+            endPosition = new Vector3(Random.Range(gameParameters.AI_drone_x1, gameParameters.AI_drone_x2), Random.Range(gameParameters.AI_drone_y1, gameParameters.AI_drone_y2), Random.Range(gameParameters.AI_drone_z1, gameParameters.AI_drone_z2));
         }
         else
         {
-            endPosition = new Vector3(Random.Range(-40, -5), Random.Range(13, 25), Random.Range(25, 45));
+            endPosition = new  Vector3(Random.Range(-gameParameters.AI_drone_x2, -gameParameters.AI_drone_x1), Random.Range(gameParameters.AI_drone_y1, gameParameters.AI_drone_y2), Random.Range(gameParameters.AI_drone_z1, gameParameters.AI_drone_z2));
         }
 
     }

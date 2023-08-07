@@ -4,21 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class manager : MonoBehaviour // mage game manager singleton
+public class manager : MonoBehaviour
 {
+    public static manager Instance { get; private set; }
     private int health;
     private int score;
     private int combo;
+    [SerializeField] GameObject player;
     [SerializeField] private Slider enemy_slider;
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text comboText;
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);// we do not want to destroy first instance.
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
     void Start()
     {
         combo = 0;
-        slider.maxValue = 100;
-        setHealth(100);
+        slider.maxValue = gameParameters.health_max;
+        setHealth(gameParameters.health_max);
         setScore(0);
     }
 
@@ -29,14 +42,14 @@ public class manager : MonoBehaviour // mage game manager singleton
     public int incCombo()
     {
         combo++;
-        comboText.text = "Combo: " + combo;
+        comboText.text = TagHolder.combo + combo;
         return combo;
 
     }
     public int setCombo()
     {
         combo = 0;
-        comboText.text = "Combo: " + combo;
+        comboText.text = TagHolder.combo + combo;
         return combo;
     }
 
@@ -54,11 +67,11 @@ public class manager : MonoBehaviour // mage game manager singleton
         setHealth(health - val);
         return health;
     }
-    void setHealth(int val)
+    public void setHealth(int val)
     {
-        if (val >= 100)
+        if (val >= gameParameters.health_max)
         {
-            health = 100;
+            health = gameParameters.health_max;
         }
         else
         {
@@ -72,10 +85,14 @@ public class manager : MonoBehaviour // mage game manager singleton
         setScore(score + val);
         return score;
     }
-    void setScore(int val)
+    public void setScore(int val)
     {
         score = val;
-        scoreText.text = "Score: " + score;
+        scoreText.text = TagHolder.score + score;
+    }
+    public Vector3 getPosition()
+    {
+        return player.transform.position;
     }
 
     void Update()

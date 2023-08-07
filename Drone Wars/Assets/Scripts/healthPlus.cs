@@ -16,12 +16,11 @@ public class healthPlus : MonoBehaviour
     Vector3 comingEndPosition;
     float comingDesiredDuration = 0.5f;
     float comingElapsedTime;
-    referancePoint comingPosition;
 
     void Start()
     {
         startPosition = transform.position;
-        endPosition = new Vector3(transform.position.x, transform.position.y + 3, transform.position.z);
+        endPosition = new Vector3(transform.position.x, transform.position.y + gameParameters.healthPlus_rising_number, transform.position.z);
 
         comingToPlayer = false;
 
@@ -36,13 +35,13 @@ public class healthPlus : MonoBehaviour
 
             transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
 
-            if (transform.localPosition.y >= startPosition.y + 3 - 0.1) // drone is close enough to startPosition.y+3
+            if (transform.localPosition.y >= startPosition.y + gameParameters.healthPlus_rising_number - gameParameters.healthPlus_error_number) // drone is close enough to startPosition.y+3
             {
                 comingToPlayer = true;
                 comingStartPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                comingEndPosition = new Vector3();
+                comingEndPosition = manager.Instance.getPosition();
                 comingElapsedTime = 0;
-                comingPosition = FindObjectOfType<referancePoint>(); // singleton game manager'dan alsın player konumunu
+
             }
         }
         else
@@ -51,9 +50,9 @@ public class healthPlus : MonoBehaviour
             float comingPercentageComplete = comingElapsedTime / comingDesiredDuration;
 
             transform.position = Vector3.Lerp(comingStartPosition, comingEndPosition, comingPercentageComplete);
-            if (transform.localPosition.y >= endPosition.y - 0.1)
+            if (Vector3.Distance(transform.position, comingEndPosition) <= gameParameters.healthPlus_error_number)
             {
-                Destroy(this.gameObject);
+                Destroy(this.gameObject);//!!!!
             }
         }
         

@@ -14,7 +14,7 @@ public class enemy_bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag.Equals("player") || other.gameObject.tag.Equals("unshootable"))
+        if (other.gameObject.tag.Equals(TagHolder.player) || other.gameObject.tag.Equals(TagHolder.unshootable))
         {
             gameObject.SetActive(false);
         }
