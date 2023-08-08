@@ -19,6 +19,7 @@ TagManager:
   - running_health_drone
   - running_drone
   - rotating_enemy
+  - not_a_pool_object
   layers:
   - Default
   - TransparentFX
