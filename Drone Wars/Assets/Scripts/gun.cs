@@ -8,9 +8,17 @@ public class gun : MonoBehaviour
 {
     [SerializeField] LayerMask aimColliderMask = new LayerMask();
     [SerializeField] private ParticleSystem muzzle_flash;
-    [SerializeField] Transform bullet_prefab;
+    //[SerializeField] Transform bullet;
     [SerializeField] private Transform BulletSpawnPoint;
 
+    poolMechanism poolMech;
+
+    Quaternion rotation;
+
+    private void Start()
+    {
+        poolMech = FindObjectOfType<poolMechanism>();
+    }
     void Update()
     {
         Vector3 mouseWorldPosition = Vector3.zero;
@@ -20,19 +28,25 @@ public class gun : MonoBehaviour
         {
             mouseWorldPosition = raycastHit.point;
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 aimDir = (mouseWorldPosition - BulletSpawnPoint.position).normalized;
-            Instantiate(bullet_prefab,BulletSpawnPoint.position, Quaternion.LookRotation(aimDir,Vector3.up));
+            rotation = Quaternion.LookRotation(aimDir, Vector3.up);
+            //Instantiate(bullet_prefab,BulletSpawnPoint.position, Quaternion.LookRotation(aimDir,Vector3.up));
+            poolMech.dequeue(gameObject);
             muzzle_flash.Play();
 
         }
 
-
     }
- 
+    public Quaternion getRotation()
+    {
+        return rotation;
+    }
 
-                   
+
+
 }
 
 

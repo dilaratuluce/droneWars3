@@ -36,4 +36,16 @@ public static class gameParameters
     public const int runnig_drone_y2 = 25;
     public const int runnig_drone_z1 = 20;
     public const int runnig_drone_z2 = 50;
+
+    public const double standing_enemy1_pos_x = 1.7;
+    public const double standing_enemy1_pos_y = -1.7;
+    public const double standing_enemy1_pos_z = 0;
+
+    public const double standing_enemy2_pos_x = 32;
+    public const double standing_enemy2_pos_y = -2.7;
+    public const double standing_enemy2_pos_z = -2.6;
+
+    public const double standing_enemy_pos_x = 74.6;
+    public const double standing_enemy_pos_y = -2.5;
+    public const double standing_enemy_pos_z = 46.5;
 }

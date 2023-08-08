@@ -5,9 +5,7 @@ using UnityEngine;
 public class rotatingCreator : MonoBehaviour
 {
     // rotatingCreator is a script attached to a blank object which rotates, and creates rotating drones, rotating drones' movements is done by otomaticly in this script
-   // [SerializeField] private float rotationSpeed; // rotate around itself
 
-  //  [SerializeField] private GameObject rotatingPrefab;
     [SerializeField] float firstCreateTime;
     [SerializeField] float createDelay;
 
@@ -15,7 +13,8 @@ public class rotatingCreator : MonoBehaviour
 
     poolMechanism poolMech;
 
-    // Start is called before the first frame update
+   // [SerializeField] private float rotationSpeed; // rotate around itself
+
     void Start()
     {
         poolMech = FindObjectOfType<poolMechanism>();
@@ -24,17 +23,20 @@ public class rotatingCreator : MonoBehaviour
     }
 
     void CreateObject()
-    {/*
-        var newObj = Instantiate(rotatingPrefab, transform.position, Quaternion.identity);
-        newObj.transform.parent = gameObject.transform;
-        startPosition = new Vector3(Random.Range(-95, -30), Random.Range(10, 25), 0);
-        newObj.transform.position = startPosition;*/
+    {
         poolMech.dequeue(gameObject);
     }
 
     void Update()
     {
-       // transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime); // rotate around itself
+       //transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime); // rotate around itself
+    }
+
+    // Start is called before the first frame update
+    void OnEnable()
+    {
+        transform.position = new Vector3(0,0,0);
+        transform.GetChild(0).transform.position = new Vector3(Random.Range(-100, -60), Random.Range(10, 25), 0);
     }
 
 }

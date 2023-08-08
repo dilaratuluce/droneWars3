@@ -25,9 +25,10 @@ public class poolMechanism : MonoBehaviour
         //firstPasiveGameObject = gameObject.transform.GetChild(0).gameObject;                
         for (int i = 0; i < parentObject.transform.childCount; i++)
         {
-            if (parentObject.transform.GetChild(i).gameObject.activeSelf == false)
+            if (parentObject.transform.GetChild(i).gameObject.activeSelf == false && !parentObject.transform.GetChild(i).tag.Equals("not_a_pool_object") && !parentObject.transform.GetChild(i).tag.Equals("rotating_enemy"))
             {
                 firstPasiveGameObject = parentObject.transform.GetChild(i).gameObject;
+                break;
             }
         }
 

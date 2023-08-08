@@ -17,12 +17,25 @@ public class healthPlus : MonoBehaviour
     float comingDesiredDuration = 0.5f;
     float comingElapsedTime;
 
-    void Start()
+    bulletProjectile bulletScript;
+    poolMechanism poolMech;
+
+    [SerializeField] GameObject healthPlusParent;
+
+    void OnEnable()
     {
+        poolMech = FindObjectOfType<poolMechanism>();
+        bulletScript = FindObjectOfType<bulletProjectile>();
+
+        transform.position = bulletScript.getPosition();
+
         startPosition = transform.position;
         endPosition = new Vector3(transform.position.x, transform.position.y + gameParameters.healthPlus_rising_number, transform.position.z);
 
         comingToPlayer = false;
+
+        elapsedTime = 0;
+
 
     }
 
@@ -52,7 +65,9 @@ public class healthPlus : MonoBehaviour
             transform.position = Vector3.Lerp(comingStartPosition, comingEndPosition, comingPercentageComplete);
             if (Vector3.Distance(transform.position, comingEndPosition) <= gameParameters.healthPlus_error_number)
             {
-                Destroy(this.gameObject);//!!!!
+                poolMech.enqueue(gameObject, healthPlusParent);
+                //Destroy(this.gameObject);//!!!!
+                
             }
         }
         
