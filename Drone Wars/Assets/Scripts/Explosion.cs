@@ -15,7 +15,7 @@ public class Explosion : MonoBehaviour
         poolMech = FindObjectOfType<poolMechanism>();
         bulletScript = FindObjectOfType<bulletProjectile>();
 
-        transform.position = bulletScript.getPosition();
+        //transform.position = bulletScript.getPosition();
 
         Invoke("Destroy", explosionEndTime);
     }
@@ -28,6 +28,6 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
