@@ -112,9 +112,9 @@ public class bulletProjectile : MonoBehaviour
         else if (collision.transform.tag.Equals(TagHolder.rotating_enemy))
         {
             EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-            if (EnemyHealthSlider.value > gameParameters.enemy_health_limit)
+            if (EnemyHealthSlider.value > my_gun.getDamage())
             {
-                EnemyHealthSlider.value -= gameParameters.enemy_health_limit;
+                EnemyHealthSlider.value -= my_gun.getDamage();
 
             }
             else
@@ -140,9 +140,9 @@ public class bulletProjectile : MonoBehaviour
         else if (collision.transform.tag.Equals("enemy"))
         {
             EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-            if (EnemyHealthSlider.value > gameParameters.enemy_health_limit)
+            if (EnemyHealthSlider.value > my_gun.getDamage())
             {
-                EnemyHealthSlider.value -= gameParameters.enemy_health_limit;
+                EnemyHealthSlider.value -= my_gun.getDamage();
 
             }
             else
@@ -171,10 +171,10 @@ public class bulletProjectile : MonoBehaviour
         else if (collision.transform.tag.Equals(TagHolder.AI_drone)) // doo
         {
             EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-            if (EnemyHealthSlider.value > gameParameters.enemy_health_limit) // gameParameter.cs'e koy parametreleri, public sontant olarak koy, cs dosyaları büyük harfle başlasın
+            if (EnemyHealthSlider.value > my_gun.getDamage()) // gameParameter.cs'e koy parametreleri, public sontant olarak koy, cs dosyaları büyük harfle başlasın
             {
                 AI_drone = collision.transform.gameObject.GetComponent<AI_drone>();
-                EnemyHealthSlider.value -= gameParameters.enemy_health_limit;
+                EnemyHealthSlider.value -= my_gun.getDamage();
                 AI_drone.changePosBool(true);
 
             }

@@ -4,45 +4,75 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
+
 public class gun : MonoBehaviour
 {
-    [SerializeField] LayerMask aimColliderMask = new LayerMask();
-    [SerializeField] private ParticleSystem muzzle_flash;
     //[SerializeField] Transform bullet;
     [SerializeField] private Transform BulletSpawnPoint;
-
+    [SerializeField] private Transform mouseWorldPosition;
+    [SerializeField] int damage;
+    int currentAmmo;
+    private bool isReloading = false;
+    [SerializeField] int maxAmmo;
     poolMechanism poolMech;
+    [SerializeField] float reloadTime;
 
     Quaternion rotation;
+    weaponAnimation weapon_animation;
 
     private void Start()
     {
+        currentAmmo = maxAmmo;
         poolMech = FindObjectOfType<poolMechanism>();
+        weapon_animation = FindObjectOfType<weaponAnimation>();
+    }
+    private void OnEnable()
+    {
+        isReloading = false;
     }
     void Update()
     {
-        Vector3 mouseWorldPosition = Vector3.zero;
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
+       if (isReloading) return;
+       if(currentAmmo <= 0)
         {
-            mouseWorldPosition = raycastHit.point;
-        }
+            Debug.Log("Press R button");
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine("Reload");
+                return;
 
-        if (Input.GetMouseButtonDown(0))
+            }
+                
+        }
+        if (currentAmmo > 0 && Input.GetMouseButtonDown(0))
         {
-            Vector3 aimDir = (mouseWorldPosition - BulletSpawnPoint.position).normalized;
+            currentAmmo--;
+            Debug.Log(currentAmmo);
+            Vector3 aimDir = (mouseWorldPosition.position - BulletSpawnPoint.position).normalized;
             rotation = Quaternion.LookRotation(aimDir, Vector3.up);
             //Instantiate(bullet_prefab,BulletSpawnPoint.position, Quaternion.LookRotation(aimDir,Vector3.up));
             poolMech.dequeue(gameObject);
-            muzzle_flash.Play();
 
         }
 
+    }
+    IEnumerator Reload()
+    {
+        weapon_animation.Open();
+        isReloading = true;
+        Debug.Log("Reloading");
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+        weapon_animation.Close();
+        isReloading = false;
     }
     public Quaternion getRotation()
     {
         return rotation;
+    }
+    public int getDamage(){
+        return damage;
+
     }
 
 

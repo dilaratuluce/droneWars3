@@ -10,28 +10,41 @@ public class ZoomInAim : MonoBehaviour
 
     private bool isZoomed = false;
     private bool notZoomed = true;
+    WeaponSwitch weaponSwitch;
+
+
+    private void Awake()
+    {
+        weaponSwitch = FindAnyObjectByType<WeaponSwitch>();
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if(weaponSwitch.getSelectedWeapon() != 0)
         {
-            isZoomed = !isZoomed;
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                isZoomed = !isZoomed;
+            }
+
+            if (isZoomed)
+            {
+                GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                isZoomed = !notZoomed;
+            }
+
+            if (notZoomed)
+            {
+                GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
+            }
+
         }
 
-        if (isZoomed)
-        {
-            GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, zoom, Time.deltaTime * smooth);
-        }
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            isZoomed = !notZoomed;
-        }
-
-        if (notZoomed)
-        {
-            GetComponent<Camera>().fieldOfView = Mathf.Lerp(GetComponent<Camera>().fieldOfView, normal, Time.deltaTime * smooth);
-        }
     }
     /*The isZoomed and notZoomed variables are used to toggle between zoomed and normal states. 
       When the right mouse button is pressed down, the camera switches to zoomed mode (isZoomed becomes true),
