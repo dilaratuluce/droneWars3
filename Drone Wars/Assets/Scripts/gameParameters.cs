@@ -48,4 +48,6 @@ public static class gameParameters
     public const double standing_enemy_pos_x = 74.6;
     public const double standing_enemy_pos_y = -2.5;
     public const double standing_enemy_pos_z = 46.5;
+    public const int weapon_rotation = 45;
+    public const float weapon_animation_duration = 0.5f;
 }

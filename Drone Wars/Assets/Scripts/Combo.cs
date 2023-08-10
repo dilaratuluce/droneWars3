@@ -8,6 +8,7 @@ public class Combo : MonoBehaviour
     void Start()
     {
         transform.localScale = Vector2.zero;
+        
     }
 
     public void Open()
