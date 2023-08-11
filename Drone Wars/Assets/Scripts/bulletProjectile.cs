@@ -34,12 +34,14 @@ public class bulletProjectile : MonoBehaviour
 
     public GameObject bulletParent; // (gun)
 
-    Vector3 shootedDronePosition;
+    //Vector3 shootedDronePosition;
 
-    public Vector3 getPosition()
+    ShootedDronePosition shootedPosition;
+
+    /*public Vector3 getPosition()
     {
         return shootedDronePosition;
-    }
+    }*/
 
     gun my_gun;
 
@@ -50,6 +52,8 @@ public class bulletProjectile : MonoBehaviour
     }
     void OnEnable()
     {
+        shootedPosition = FindObjectOfType<ShootedDronePosition>();
+
         AI_drone = FindObjectOfType<AI_drone>(); //doo
         combo = FindObjectOfType<Combo>();
         poolMech = FindObjectOfType<poolMechanism>();
@@ -73,14 +77,15 @@ public class bulletProjectile : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Destroy(gameObject);
-        shootedDronePosition = collision.transform.position;
+        //shootedDronePosition = collision.transform.position;
+        shootedPosition.setDronePos(collision.transform.position);
         if (collision.transform.tag.Equals(TagHolder.running_drone))
         {
             //Destroy(collision.transform.gameObject); // destroy ve intantiate kullanmıyoruz, queue kullan; enqueue, dequeue
 
             //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-            shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(explosionCreator, shootedDronePosition);
+            //shootedDronePosition = collision.transform.position;
+            poolMech.dequeue2(explosionCreator, collision.transform.position);
             manager.Instance.incCombo();
             if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
             else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -96,8 +101,8 @@ public class bulletProjectile : MonoBehaviour
             //Destroy(collision.transform.gameObject); // destroy ve intantiate kullanmıyoruz, queue kullan; enqueue, dequeue
 
             //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-            shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(explosionCreator, shootedDronePosition);
+           // shootedDronePosition = collision.transform.position;
+            poolMech.dequeue2(explosionCreator, collision.transform.position);
             manager.Instance.incCombo();
             if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
             else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -121,8 +126,8 @@ public class bulletProjectile : MonoBehaviour
             {
                 EnemyHealthSlider.value = 0;
                 //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-                shootedDronePosition = collision.transform.position;
-                poolMech.dequeue2(explosionCreator, shootedDronePosition);
+                //shootedDronePosition = collision.transform.position;
+                poolMech.dequeue2(explosionCreator, collision.transform.position);
                 manager.Instance.incCombo();
                 if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
                 else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -150,8 +155,8 @@ public class bulletProjectile : MonoBehaviour
                 EnemyHealthSlider.value = 0;
                 //collision.transform.gameObject.SetActive(false);
                 //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-                shootedDronePosition = collision.transform.position;
-                poolMech.dequeue2(explosionCreator, shootedDronePosition);
+                //shootedDronePosition = collision.transform.position;
+                poolMech.dequeue2(explosionCreator, collision.transform.position);
                 manager.Instance.incCombo();
                 if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
                 else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -184,8 +189,8 @@ public class bulletProjectile : MonoBehaviour
                 //Destroy(collision.transform.gameObject);
 
                 //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-                shootedDronePosition = collision.transform.position;
-                poolMech.dequeue2(explosionCreator, shootedDronePosition);
+                //shootedDronePosition = collision.transform.position;
+                poolMech.dequeue2(explosionCreator, collision.transform.position);
                 manager.Instance.incCombo();
                 if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
                 else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -209,9 +214,9 @@ public class bulletProjectile : MonoBehaviour
             manager.Instance.incHealth(30);
 
             //Instantiate(health_plus, collision.transform.position, collision.transform.rotation); // health code line
-            shootedDronePosition = collision.transform.position;
+            //shootedDronePosition = collision.transform.position;
             poolMech.dequeue(healthPlusCreator);
-            poolMech.dequeue2(healthExplosionCreator, shootedDronePosition); //bunu yap sonra
+            poolMech.dequeue2(healthExplosionCreator, collision.transform.position); //bunu yap sonra
 
             //Instantiate(health_explosionEffect, collision.transform.position, collision.transform.rotation);
 
@@ -234,9 +239,9 @@ public class bulletProjectile : MonoBehaviour
             //Debug.Log("running health drone shooted");
 
             //Instantiate(health_plus, collision.transform.position, collision.transform.rotation); // health code line
-            shootedDronePosition = collision.transform.position;
+            //shootedDronePosition = collision.transform.position;
             poolMech.dequeue(healthPlusCreator);
-            poolMech.dequeue2(healthExplosionCreator, shootedDronePosition);
+            poolMech.dequeue2(healthExplosionCreator, collision.transform.position);
 
             //Instantiate(health_explosionEffect, collision.transform.position, collision.transform.rotation);
             //poolMech.dequeue2(explosionCreator,shootedDronePosition); bunu yap sonra
@@ -260,8 +265,8 @@ public class bulletProjectile : MonoBehaviour
             bombColliders = Physics.OverlapSphere(collision.transform.position, bombRadius);
             bombedObjectNum = 0;
             //Instantiate(bomb_explosionEffect, collision.transform.position, collision.transform.rotation);
-            shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(bombExplosionCreator, shootedDronePosition);
+            //shootedDronePosition = collision.transform.position;
+            poolMech.dequeue2(bombExplosionCreator, collision.transform.position);
             foreach (Collider collider in bombColliders)
             {
                 if (collider.gameObject.tag.Equals(TagHolder.running_drone))

@@ -17,7 +17,9 @@ public class healthPlus : MonoBehaviour
     float comingDesiredDuration = 0.5f;
     float comingElapsedTime;
 
-    bulletProjectile bulletScript;
+    //bulletProjectile bulletScript;
+    ShootedDronePosition shootedPosition;
+
     poolMechanism poolMech;
 
     [SerializeField] GameObject healthPlusParent;
@@ -25,9 +27,10 @@ public class healthPlus : MonoBehaviour
     void OnEnable()
     {
         poolMech = FindObjectOfType<poolMechanism>();
-        bulletScript = FindObjectOfType<bulletProjectile>();
+        //bulletScript = FindObjectOfType<bulletProjectile>();
+        shootedPosition = FindObjectOfType<ShootedDronePosition>();
 
-        transform.position = bulletScript.getPosition();
+        transform.position = shootedPosition.getDronePos();
 
         startPosition = transform.position;
         endPosition = new Vector3(transform.position.x, transform.position.y + gameParameters.healthPlus_rising_number, transform.position.z);
