@@ -11,6 +11,8 @@ public static class TagHolder
     public const string enemy_bullet = "enemy_bullet";
     public const string combo = "Combo: ";
     public const string score = "Score: ";
+    public const string gun_bringer1 = "gun_bringer1";
+    public const string gun_bringer2 = "gun_bringer2";
 
 }
 
