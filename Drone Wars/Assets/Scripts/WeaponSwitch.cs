@@ -3,52 +3,53 @@ using UnityEngine;
 
 public class WeaponSwitch : MonoBehaviour
 {
-    [SerializeField] int selectedWeapon = 0;
+    int selectedWeapon = 0;
+    inventory_activator inventory_activator;
+    bool IsPressed = false;
+
+    [SerializeField] GameObject inventory;
+
     void Start()
     {
         SelectWeapon();
-        
+        inventory_activator = FindObjectOfType<inventory_activator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         int previousSelectedWeapon = selectedWeapon;
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+
+        if (inventory_activator.getIsPressedB())
         {
-            if (selectedWeapon >= transform.childCount - 1)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
                 selectedWeapon = 0;
-            else
-            selectedWeapon++;
-
+                inventory.SetActive(false);
+                inventory_activator.setIsPressedB(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
+            {
+                selectedWeapon = 1;
+                inventory.SetActive(false);
+                inventory_activator.setIsPressedB(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
+            {
+                selectedWeapon = 2;
+                inventory.SetActive(false);
+                inventory_activator.setIsPressedB(false);
+            }
+            if (previousSelectedWeapon != selectedWeapon)
+            {
+                SelectWeapon();
+            }
         }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
-        {
-            if (selectedWeapon <= 0)
-                selectedWeapon = transform.childCount - 1;
-            else
-                selectedWeapon--;
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            selectedWeapon = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 2)
-        {
-            selectedWeapon = 1;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
-        {
-            selectedWeapon = 2;
-        }
-        if (previousSelectedWeapon != selectedWeapon)
-        {
-            SelectWeapon();
-        }
+        
     }
     void SelectWeapon()
     {
+        Debug.Log("you are selecting");
         int i = 0;
         foreach (Transform weapon in transform)// only one of our weapons are enabled.
         {
