@@ -39,7 +39,6 @@ public class gun : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 StartCoroutine("Reload");
-                return;
 
             }
                 
@@ -74,8 +73,6 @@ public class gun : MonoBehaviour
         return damage;
 
     }
-
-
 
 }
 
