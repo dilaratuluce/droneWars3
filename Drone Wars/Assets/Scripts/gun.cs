@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-
+using TMPro;
 
 public class gun : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class gun : MonoBehaviour
     [SerializeField] int maxAmmo;
     poolMechanism poolMech;
     [SerializeField] float reloadTime;
+    [SerializeField] private TMP_Text ammoText;
 
     Quaternion rotation;
     weaponAnimation weapon_animation;
@@ -32,6 +33,7 @@ public class gun : MonoBehaviour
     }
     void Update()
     {
+       ammoText.text = currentAmmo + "/" + maxAmmo;
        if (isReloading) return;
        if(currentAmmo <= 0)
         {
