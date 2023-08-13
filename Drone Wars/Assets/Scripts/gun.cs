@@ -40,7 +40,7 @@ public class gun : MonoBehaviour
     {
        ammoText.text = currentAmmo + "/" + maxAmmo;
        if (isReloading) return;
-       if(currentAmmo <= 0)
+       if(currentAmmo <= maxAmmo)
         {
             Debug.Log("Press R button");
             if (Input.GetKeyDown(KeyCode.R))
