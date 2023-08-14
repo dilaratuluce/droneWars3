@@ -34,7 +34,7 @@ public class rocketProjectile : MonoBehaviour
 
     public GameObject bulletParent; // (gun)
 
-
+    [SerializeField] Transform look;
     //Vector3 shootedDronePosition;
 
     ShootedDronePosition shootedPosition;
@@ -67,7 +67,7 @@ public class rocketProjectile : MonoBehaviour
 
         Vector3 aimDir = (mouseWorldPosition - BulletSpawnPoint.position).normalized; */
         gameObject.transform.position = BulletSpawnPoint.position;
-        gameObject.transform.rotation = my_gun.getRotation();
+        gameObject.transform.rotation = look.rotation;
         bulletRigidbody.velocity = transform.forward * bullet_speed;
 
 
@@ -120,8 +120,9 @@ public class rocketProjectile : MonoBehaviour
             else manager.Instance.incScore(gameParameters.score_point * bombedObjectNum);
             poolMech.enqueue(gameObject, bulletParent);
         }
-        else if (collision.transform.tag.Equals("unshootable") || collision.transform.tag.Equals("ground"))
+        else if (collision.transform.tag.Equals("unshootable"))
         {
+            manager.Instance.setCombo();
             poolMech.enqueue(gameObject, bulletParent);
         }
         
