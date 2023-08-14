@@ -25,6 +25,11 @@ public class GrenadeLauncher : MonoBehaviour
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
     bulletProjectile projectile;
+
+    public void setCurrentAmmoToMax()
+    {
+        currentAmmo = maxAmmo;
+    }
     public float getReloadTime()
     {
         return reloadTime;

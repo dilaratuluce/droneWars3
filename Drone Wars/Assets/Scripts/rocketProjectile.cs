@@ -29,6 +29,7 @@ public class rocketProjectile : MonoBehaviour
     //[SerializeField] GameObject explosionCreator;
     //[SerializeField] GameObject healthExplosionCreator;
     [SerializeField] GameObject rocketExplosionCreator;
+    [SerializeField] GameObject bulletBringerParent;
 
     [SerializeField] Transform BulletSpawnPoint;
 
@@ -39,7 +40,7 @@ public class rocketProjectile : MonoBehaviour
 
     ShootedDronePosition shootedPosition;
 
-    gun my_gun;
+    RocketLauncher my_gun;
     TakingGun takingGun;
 
 
@@ -54,7 +55,7 @@ public class rocketProjectile : MonoBehaviour
         AI_drone = FindObjectOfType<AI_drone>(); //doo
         combo = FindObjectOfType<Combo>();
         poolMech = FindObjectOfType<poolMechanism>();
-        my_gun = FindObjectOfType<gun>();
+        my_gun = FindObjectOfType<RocketLauncher>();
         takingGun = FindObjectOfType<TakingGun>();
 
         /*Vector3 mouseWorldPosition = Vector3.zero;
@@ -108,6 +109,11 @@ public class rocketProjectile : MonoBehaviour
                     poolMech.enqueue(collider.gameObject, bombDroneParent);
 
                     bombedObjectNum++;
+                }
+                else if (collider.gameObject.tag.Equals("bullet_bringer"))
+                {
+                    poolMech.enqueue(collider.gameObject, bulletBringerParent);
+                    my_gun.setCurrentAmmoToMax();
                 }
             }
             manager.Instance.incCombo();

@@ -22,6 +22,7 @@ TagManager:
   - not_a_pool_object
   - gun_bringer1
   - gun_bringer2
+  - bullet_bringer
   layers:
   - Default
   - TransparentFX

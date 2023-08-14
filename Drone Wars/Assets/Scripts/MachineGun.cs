@@ -23,6 +23,10 @@ public class MachineGun : MonoBehaviour
     [SerializeField] float fireRate = 10f; // Shots per second
     private float nextFireTime = 0f; // To track the next allowed firing time
 
+    public void setCurrentAmmoToMax()
+    {
+        currentAmmo = maxAmmo;
+    }
     private void Start()
     {
         muzzleFlash.Pause();
