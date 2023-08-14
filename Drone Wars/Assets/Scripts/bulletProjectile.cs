@@ -103,8 +103,22 @@ public class bulletProjectile : MonoBehaviour
             else manager.Instance.incScore(gameParameters.score_point);
             poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
         }
+        else if (collision.transform.tag.Equals("bullet_bringer"))
+        {
+            poolMech.dequeue2(explosionCreator, collision.transform.position);
+            manager.Instance.incCombo();
+            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
+            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
+            {
+                combo.Open();
+                manager.Instance.incScore(gameParameters.buffed_score_point);
+            }
+            else manager.Instance.incScore(gameParameters.score_point);
+            poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
+            my_gun.setCurrentAmmoToMax();
+        }
 
-        else if (collision.transform.tag.Equals(TagHolder.gun_bringer1))
+        /*else if (collision.transform.tag.Equals(TagHolder.gun_bringer1))
         {
             poolMech.dequeue2(explosionCreator, collision.transform.position);
             manager.Instance.incCombo();
@@ -133,9 +147,7 @@ public class bulletProjectile : MonoBehaviour
             //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
             collision.transform.gameObject.SetActive(false);
             takingGun.setGun2ShootedTrue();
-
-
-        }
+        }*/
 
         else if (collision.transform.tag.Equals(TagHolder.rotating_enemy))
         {

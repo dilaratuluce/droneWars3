@@ -21,6 +21,10 @@ public class gun : MonoBehaviour
     Quaternion rotation;
     weaponAnimation weapon_animation;
 
+    public void setCurrentAmmoToMax()
+    {
+        currentAmmo = maxAmmo;
+    }
     public float getReloadTime()
     {
         return reloadTime;

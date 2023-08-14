@@ -22,6 +22,10 @@ public class ShotGun : MonoBehaviour
     //weaponAnimation weapon_animation;
     weaponAnimation2 weapon_animation;
 
+    public void setCurrentAmmoToMax()
+    {
+        currentAmmo = maxAmmo;
+    }
     public float getReloadTime()
     {
         return reloadTime;
