@@ -60,7 +60,31 @@ public class poolMechanism : MonoBehaviour
             firstPasiveGameObject.transform.position = position;
             firstPasiveGameObject.SetActive(true);
         }
+        // else if there is not one active game object, it does nothing
 
+    }
+
+    public void dequeue3(GameObject parentObject, int yRotation)
+    {
+        GameObject firstPasiveGameObject = null;
+        //firstPasiveGameObject = gameObject.transform.GetChild(0).gameObject;                
+        for (int i = 0; i < parentObject.transform.childCount; i++)
+        {
+            if (parentObject.transform.GetChild(i).gameObject.activeSelf == false && !parentObject.transform.GetChild(i).tag.Equals("not_a_pool_object") && !parentObject.transform.GetChild(i).tag.Equals("rotating_enemy"))
+            {
+                firstPasiveGameObject = parentObject.transform.GetChild(i).gameObject;
+                break;
+            }
+        }
+
+        if (firstPasiveGameObject) // there is at least one pasive game Object
+        {
+            firstPasiveGameObject.transform.parent = null;
+            firstPasiveGameObject.SetActive(true);
+            Vector3 v = transform.rotation.eulerAngles;
+            transform.rotation = Quaternion.Euler(v.x, v.y + yRotation, v.z);
+            
+        }
         // else if there is not one active game object, it does nothing
 
     }
