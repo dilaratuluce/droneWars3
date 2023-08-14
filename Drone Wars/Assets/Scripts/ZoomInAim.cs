@@ -10,19 +10,17 @@ public class ZoomInAim : MonoBehaviour
 
     private bool isZoomed = false;
     private bool notZoomed = true;
+
     WeaponSwitch weaponSwitch;
-
-
     private void Awake()
     {
-        weaponSwitch = FindAnyObjectByType<WeaponSwitch>();
+        weaponSwitch = FindObjectOfType<WeaponSwitch>();
     }
 
     void Update()
     {
-        if(weaponSwitch.getSelectedWeapon() != 0)
+        if(weaponSwitch.getSelectedWeapon() != 1)
         {
-
             if (Input.GetMouseButtonDown(1))
             {
                 isZoomed = !isZoomed;
@@ -44,6 +42,10 @@ public class ZoomInAim : MonoBehaviour
             }
 
         }
+
+            
+
+        
 
     }
     /*The isZoomed and notZoomed variables are used to toggle between zoomed and normal states. 

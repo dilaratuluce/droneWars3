@@ -29,7 +29,6 @@ public class bulletProjectile : MonoBehaviour
     [SerializeField] GameObject explosionCreator;
     [SerializeField] GameObject healthExplosionCreator;
     [SerializeField] GameObject bombExplosionCreator;
-    [SerializeField] float spread_value = 0;
 
     [SerializeField] Transform BulletSpawnPoint;
 
@@ -65,8 +64,6 @@ public class bulletProjectile : MonoBehaviour
 
         gameObject.transform.position = BulletSpawnPoint.position;
         gameObject.transform.rotation = my_gun.getRotation();
-        Quaternion spreadRotation = Quaternion.Euler(spread_value, 0, 0);
-        gameObject.transform.rotation *= spreadRotation;
         bulletRigidbody.velocity = transform.forward * bullet_speed;
 
 

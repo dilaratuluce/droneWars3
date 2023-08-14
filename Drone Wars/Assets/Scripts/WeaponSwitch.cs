@@ -40,6 +40,18 @@ public class WeaponSwitch : MonoBehaviour
                 inventory.SetActive(false);
                 inventory_activator.setIsPressedB(false);
             }
+            if (Input.GetKeyDown(KeyCode.Alpha4) && transform.childCount >= 4)
+            {
+                selectedWeapon = 3;
+                inventory.SetActive(false);
+                inventory_activator.setIsPressedB(false);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5) && transform.childCount >= 5)
+            {
+                selectedWeapon = 4;
+                inventory.SetActive(false);
+                inventory_activator.setIsPressedB(false);
+            }
             if (previousSelectedWeapon != selectedWeapon)
             {
                 SelectWeapon();
