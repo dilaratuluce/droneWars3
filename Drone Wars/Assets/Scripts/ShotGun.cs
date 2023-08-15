@@ -63,12 +63,19 @@ public class ShotGun : MonoBehaviour
             rotation = Quaternion.LookRotation(aimDir, Vector3.up);
             //Instantiate(bullet_prefab,BulletSpawnPoint.position, Quaternion.LookRotation(aimDir,Vector3.up));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
-            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y + 1, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+
+            /*poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y + 1, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y - 1, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x + 1, BulletSpawnPoint.position.y + 0.5f, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x + 1, BulletSpawnPoint.position.y - 0.5f, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x - 1, BulletSpawnPoint.position.y + 0.5f, BulletSpawnPoint.position.z));
-            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x - 1, BulletSpawnPoint.position.y - 0.5f, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x - 1, BulletSpawnPoint.position.y - 0.5f, BulletSpawnPoint.position.z));*/
 
         }
 

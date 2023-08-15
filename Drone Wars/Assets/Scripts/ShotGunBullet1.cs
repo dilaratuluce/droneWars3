@@ -48,6 +48,7 @@ public class ShotGunBullet1 : MonoBehaviour
     ShotGun my_gun;
     TakingGun takingGun;
 
+    [SerializeField] float maxSpread;
 
     void Awake()
     {
@@ -66,12 +67,14 @@ public class ShotGunBullet1 : MonoBehaviour
         //gameObject.transform.position = BulletSpawnPoint.position;
         gameObject.transform.rotation = my_gun.getRotation();
 
-       // Vector3 v = transform.rotation.eulerAngles;
-       // transform.rotation = Quaternion.Euler(v.x, v.y+50, v.z); // 10 sağa gidiyor
+        // Vector3 v = transform.rotation.eulerAngles;
+        // transform.rotation = Quaternion.Euler(v.x, v.y+50, v.z); // 10 sağa gidiyor
 
-        Quaternion spreadRotation = Quaternion.Euler(spread_value, 0, 0);
-        gameObject.transform.rotation *= spreadRotation;
-        bulletRigidbody.velocity = transform.forward * bullet_speed;
+        //  gameObject.transform.rotation *= spreadRotation;
+        //  bulletRigidbody.velocity = transform.forward * bullet_speed;
+
+        Vector3 dir = transform.forward + new Vector3(Random.Range(-maxSpread, maxSpread), Random.Range(-maxSpread, maxSpread), Random.Range(-maxSpread, maxSpread));
+        bulletRigidbody.velocity = dir * bullet_speed;
 
 
     }
@@ -127,41 +130,6 @@ public class ShotGunBullet1 : MonoBehaviour
             poolMech.enqueue(gameObject, bulletParent);
             my_gun.setCurrentAmmoToMax();
         }
-        /*
-        else if (collision.transform.tag.Equals(TagHolder.gun_bringer1))
-        {
-            poolMech.dequeue2(explosionCreator, collision.transform.position);
-            manager.Instance.incCombo();
-            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-            {
-                combo.Open();
-                manager.Instance.incScore(gameParameters.buffed_score_point);
-            }
-            else manager.Instance.incScore(gameParameters.score_point);
-            //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
-            collision.transform.gameObject.SetActive(false);
-            takingGun.setGun1ShootedTrue();
-            poolMech.enqueue(gameObject, bulletParent);
-        }
-        else if (collision.transform.tag.Equals(TagHolder.gun_bringer2))
-        {
-            poolMech.dequeue2(explosionCreator, collision.transform.position);
-            manager.Instance.incCombo();
-            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-            {
-                combo.Open();
-                manager.Instance.incScore(gameParameters.buffed_score_point);
-            }
-            else manager.Instance.incScore(gameParameters.score_point);
-            //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
-            collision.transform.gameObject.SetActive(false);
-            takingGun.setGun2ShootedTrue();
-
-            poolMech.enqueue(gameObject, bulletParent);
-
-        }*/
 
         else if (collision.transform.tag.Equals(TagHolder.rotating_enemy))
         {
