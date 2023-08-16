@@ -41,7 +41,6 @@ public class GrenadeProjectile : MonoBehaviour
     ShootedDronePosition shootedPosition;
 
     GrenadeLauncher my_gun;
-    TakingGun takingGun;
 
 
     void Awake()
@@ -56,7 +55,6 @@ public class GrenadeProjectile : MonoBehaviour
         combo = FindObjectOfType<Combo>();
         poolMech = FindObjectOfType<poolMechanism>();
         my_gun = FindObjectOfType<GrenadeLauncher>();
-        takingGun = FindObjectOfType<TakingGun>();
 
         /*Vector3 mouseWorldPosition = Vector3.zero;
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -75,7 +73,7 @@ public class GrenadeProjectile : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (!collision.transform.tag.Equals("player") && !collision.transform.tag.Equals("unshootable"))
+        if (!collision.transform.tag.Equals(TagHolder.player) && !collision.transform.tag.Equals(TagHolder.unshootable))
         {
             bombColliders = Physics.OverlapSphere(collision.transform.position, rocketBombRadius);
             bombedObjectNum = 0;
@@ -104,18 +102,32 @@ public class GrenadeProjectile : MonoBehaviour
                     poolMech.enqueue(collider.gameObject, runningHealthDroneParent);
                     manager.Instance.incHealth(gameParameters.health_point);
                 }
+                else if (collider.gameObject.tag.Equals(TagHolder.enemy))
+                {
+                    poolMech.enqueue(collider.gameObject, standingEnemyDroneParent);
+                }
+                else if (collider.gameObject.tag.Equals(TagHolder.health_drone))
+                {
+                    poolMech.enqueue(collider.gameObject, standingHealthDroneParent);
+                    manager.Instance.incHealth(gameParameters.health_point);
+
+                }
                 else if (collider.gameObject.tag.Equals(TagHolder.bomb_drone))
                 {
                     poolMech.enqueue(collider.gameObject, bombDroneParent);
 
                     bombedObjectNum++;
                 }
-                else if (collider.gameObject.tag.Equals("bullet_bringer"))
+                else if (collider.gameObject.tag.Equals(TagHolder.bullet_bringer))
                 {
                     poolMech.enqueue(collider.gameObject, bulletBringerParent);
                     my_gun.setCurrentAmmoToMax();
                 }
+
+
+
             }
+
             manager.Instance.incCombo();
             if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point * bombedObjectNum);
             else if (manager.Instance.getCombo() == gameParameters.combo_limit)
@@ -126,7 +138,7 @@ public class GrenadeProjectile : MonoBehaviour
             else manager.Instance.incScore(gameParameters.score_point * bombedObjectNum);
             poolMech.enqueue(gameObject, bulletParent);
         }
-        else if (collision.transform.tag.Equals("unshootable"))
+        else if (collision.transform.tag.Equals(TagHolder.unshootable) || collision.transform.tag.Equals(TagHolder.limit) || collision.transform.tag.Equals(TagHolder.untagged))
         {
             manager.Instance.setCombo();
             poolMech.enqueue(gameObject, bulletParent);
@@ -134,225 +146,6 @@ public class GrenadeProjectile : MonoBehaviour
 
 
 
+
     }
 }
-
-/*
-
-    //Destroy(gameObject);
-    //shootedDronePosition = collision.transform.position;
-    shootedPosition.setDronePos(collision.transform.position);
-    if (collision.transform.tag.Equals(TagHolder.running_drone))
-    {
-        //Destroy(collision.transform.gameObject); // destroy ve intantiate kullanmıyoruz, queue kullan; enqueue, dequeue
-
-        //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-        //shootedDronePosition = collision.transform.position;
-        poolMech.dequeue2(explosionCreator, collision.transform.position);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-        poolMech.enqueue(collision.transform.gameObject, runningDroneParent); // new line
-    }
-    else if (collision.transform.tag.Equals(TagHolder.rotating_drone))
-    {
-        poolMech.dequeue2(explosionCreator, collision.transform.position);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-        poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
-    }
-
-    else if (collision.transform.tag.Equals(TagHolder.gun_bringer1))
-    {
-        poolMech.dequeue2(explosionCreator, collision.transform.position);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-        //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
-        collision.transform.gameObject.SetActive(false);
-        takingGun.setGun1ShootedTrue();
-    }
-    else if (collision.transform.tag.Equals(TagHolder.gun_bringer2))
-    {
-        poolMech.dequeue2(explosionCreator, collision.transform.position);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-        //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
-        collision.transform.gameObject.SetActive(false);
-        takingGun.setGun2ShootedTrue();
-
-
-    }
-
-    else if (collision.transform.tag.Equals(TagHolder.rotating_enemy))
-    {
-        EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-        if (EnemyHealthSlider.value > my_gun.getDamage())
-        {
-            EnemyHealthSlider.value -= my_gun.getDamage();
-
-        }
-        else
-        {
-            EnemyHealthSlider.value = 0;
-            //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-            //shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(explosionCreator, collision.transform.position);
-            manager.Instance.incCombo();
-            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-            {
-                combo.Open();
-                manager.Instance.incScore(gameParameters.buffed_score_point);
-            }
-            else manager.Instance.incScore(gameParameters.score_point);
-
-            poolMech.enqueue(collision.transform.parent.gameObject, rotatingEnemyDroneParent); // new line, parent is the one who needs to be moved here
-        }
-        //StartCoroutine(ReactivateEnemyDrone(collision.transform.gameObject));
-    }
-
-    else if (collision.transform.tag.Equals("enemy"))
-    {
-        EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-        if (EnemyHealthSlider.value > my_gun.getDamage())
-        {
-            EnemyHealthSlider.value -= my_gun.getDamage();
-
-        }
-        else
-        {
-            EnemyHealthSlider.value = 0;
-            //collision.transform.gameObject.SetActive(false);
-            //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-            //shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(explosionCreator, collision.transform.position);
-            manager.Instance.incCombo();
-            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-            {
-                combo.Open();
-                manager.Instance.incScore(gameParameters.buffed_score_point);
-            }
-            else manager.Instance.incScore(gameParameters.score_point);
-
-            poolMech.enqueue(collision.transform.gameObject, standingEnemyDroneParent); // new line // new line, parent is the one who needs to be moved here
-        }
-        //StartCoroutine(ReactivateEnemyDrone(collision.transform.gameObject));
-    }
-
-
-
-    else if (collision.transform.tag.Equals(TagHolder.AI_drone)) // doo
-    {
-        EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
-        if (EnemyHealthSlider.value > my_gun.getDamage()) // gameParameter.cs'e koy parametreleri, public sontant olarak koy, cs dosyaları büyük harfle başlasın
-        {
-            AI_drone = collision.transform.gameObject.GetComponent<AI_drone>();
-            EnemyHealthSlider.value -= my_gun.getDamage();
-            AI_drone.changePosBool(true);
-
-        }
-        else
-        {
-            EnemyHealthSlider.value = 0;
-            //Destroy(collision.transform.gameObject);
-
-            //Instantiate(explosionEffect, collision.transform.position, collision.transform.rotation);
-            //shootedDronePosition = collision.transform.position;
-            poolMech.dequeue2(explosionCreator, collision.transform.position);
-            manager.Instance.incCombo();
-            if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-            else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-            {
-                combo.Open();
-                manager.Instance.incScore(gameParameters.buffed_score_point);
-            }
-            else manager.Instance.incScore(gameParameters.score_point);
-
-            poolMech.enqueue(collision.transform.gameObject, AIDroneParent); // new line
-
-        }
-
-
-    }
-
-    else if (collision.transform.tag.Equals("health_drone"))
-    {
-
-        //Debug.Log("health drone shooted");
-        manager.Instance.incHealth(30);
-
-        //Instantiate(health_plus, collision.transform.position, collision.transform.rotation); // health code line
-        //shootedDronePosition = collision.transform.position;
-        poolMech.dequeue(healthPlusCreator);
-        poolMech.dequeue2(healthExplosionCreator, collision.transform.position); //bunu yap sonra
-
-        //Instantiate(health_explosionEffect, collision.transform.position, collision.transform.rotation);
-
-
-
-        manager.Instance.incHealth(gameParameters.health_point);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-        poolMech.enqueue(collision.transform.gameObject, standingHealthDroneParent); // new line
-    }
-
-    else if (collision.transform.tag.Equals(TagHolder.running_health_drone))
-    {
-        //Debug.Log("running health drone shooted");
-
-        //Instantiate(health_plus, collision.transform.position, collision.transform.rotation); // health code line
-        //shootedDronePosition = collision.transform.position;
-        poolMech.dequeue(healthPlusCreator);
-        poolMech.dequeue2(healthExplosionCreator, collision.transform.position);
-
-        //Instantiate(health_explosionEffect, collision.transform.position, collision.transform.rotation);
-        //poolMech.dequeue2(explosionCreator,shootedDronePosition); bunu yap sonra
-
-        manager.Instance.incHealth(gameParameters.health_point);
-        manager.Instance.incCombo();
-        if (manager.Instance.getCombo() > gameParameters.combo_limit) manager.Instance.incScore(gameParameters.buffed_score_point);
-        else if (manager.Instance.getCombo() == gameParameters.combo_limit)
-        {
-            combo.Open();
-            manager.Instance.incScore(gameParameters.buffed_score_point);
-        }
-        else manager.Instance.incScore(gameParameters.score_point);
-
-        poolMech.enqueue(collision.transform.gameObject, runningHealthDroneParent); // new line
-
-    }
-
-
-
-}
-}*/
