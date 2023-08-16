@@ -31,6 +31,8 @@ public class ShotGunBullet1 : MonoBehaviour
     [SerializeField] GameObject bombExplosionCreator;
     [SerializeField] float spread_value = 0;
 
+    [SerializeField] Transform look;
+
     [SerializeField] Transform BulletSpawnPoint;
 
     public GameObject bulletParent; // (gun)
@@ -65,7 +67,9 @@ public class ShotGunBullet1 : MonoBehaviour
         takingGun = FindObjectOfType<TakingGun>();
 
         //gameObject.transform.position = BulletSpawnPoint.position;
-        gameObject.transform.rotation = my_gun.getRotation();
+      //  gameObject.transform.rotation = my_gun.getRotation(); // open this later
+        //gameObject.transform.rotation = look.rotation;
+        
 
         // Vector3 v = transform.rotation.eulerAngles;
         // transform.rotation = Quaternion.Euler(v.x, v.y+50, v.z); // 10 sağa gidiyor
@@ -74,10 +78,15 @@ public class ShotGunBullet1 : MonoBehaviour
         //  bulletRigidbody.velocity = transform.forward * bullet_speed;
 
         Vector3 dir = transform.forward + new Vector3(Random.Range(-maxSpread, maxSpread), Random.Range(-maxSpread, maxSpread), Random.Range(-maxSpread, maxSpread));
+        Vector3 v = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(v.x + dir.x, v.y + dir.y, v.z + dir.z);
+        //transform.rotation.eulerAngles = new Vector3(v.x + dir.x, v.y + dir.y, v.z + dir.z);
+        bulletRigidbody.freezeRotation = true;
+
         bulletRigidbody.velocity = dir * bullet_speed;
 
-
     }
+
     void OnCollisionEnter(Collision collision)
     {
         //Destroy(gameObject);

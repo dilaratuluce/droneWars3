@@ -8,8 +8,10 @@ using TMPro;
 public class ShotGun : MonoBehaviour
 {
     //[SerializeField] Transform bullet;
-    [SerializeField] private Transform BulletSpawnPoint;
-    [SerializeField] private Transform mouseWorldPosition;
+    [SerializeField] Transform BulletSpawnPoint;
+
+   // [SerializeField] Transform [] mouseWorldPositions;
+
     [SerializeField] int damage;
     int currentAmmo;
     private bool isReloading = false;
@@ -19,8 +21,10 @@ public class ShotGun : MonoBehaviour
     [SerializeField] private TMP_Text ammoText;
 
     Quaternion rotation;
+
     //weaponAnimation weapon_animation;
     weaponAnimation2 weapon_animation;
+    int randomMousePoint;
 
     public void setCurrentAmmoToMax()
     {
@@ -59,16 +63,23 @@ public class ShotGun : MonoBehaviour
         {
             currentAmmo--;
             Debug.Log(currentAmmo);
-            Vector3 aimDir = (mouseWorldPosition.position - BulletSpawnPoint.position).normalized;
-            rotation = Quaternion.LookRotation(aimDir, Vector3.up);
+
+
+           /* Vector3 aimDir = (mouseWorldPositions[randomMousePoint].position - BulletSpawnPoint.position).normalized;
+            rotation = Quaternion.LookRotation(aimDir, Vector3.up);*/
+
             //Instantiate(bullet_prefab,BulletSpawnPoint.position, Quaternion.LookRotation(aimDir,Vector3.up));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+
+
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
+            //poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y, BulletSpawnPoint.position.z));
 
             /*poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y + 1, BulletSpawnPoint.position.z));
             poolMech.dequeue2(gameObject, new Vector3(BulletSpawnPoint.position.x, BulletSpawnPoint.position.y - 1, BulletSpawnPoint.position.z));
@@ -90,10 +101,7 @@ public class ShotGun : MonoBehaviour
         weapon_animation.Close();
         isReloading = false;
     }
-    public Quaternion getRotation()
-    {
-        return rotation;
-    }
+
     public int getDamage()
     {
         return damage;
