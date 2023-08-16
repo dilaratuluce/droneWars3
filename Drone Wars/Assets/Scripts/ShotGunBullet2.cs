@@ -64,7 +64,7 @@ public class ShotGunBullet2 : MonoBehaviour
         takingGun = FindObjectOfType<TakingGun>();
 
         gameObject.transform.position = BulletSpawnPoint.position;
-        gameObject.transform.rotation = my_gun.getRotation();
+     //   gameObject.transform.rotation = my_gun.getRotation(); //open this later
 
        // Vector3 v = transform.rotation.eulerAngles;
        // transform.rotation = Quaternion.Euler(v.x, v.y-50, v.z); // 10 sola gidiyor

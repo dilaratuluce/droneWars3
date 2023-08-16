@@ -13,13 +13,13 @@ public class rotatingCreator : MonoBehaviour
 
     poolMechanism poolMech;
 
-   // [SerializeField] private float rotationSpeed; // rotate around itself
+    // [SerializeField] private float rotationSpeed; // rotate around itself
 
     void Start()
     {
         poolMech = FindObjectOfType<poolMechanism>();
         InvokeRepeating("CreateObject", firstCreateTime, createDelay);
-        
+
     }
 
     void CreateObject()
@@ -29,13 +29,13 @@ public class rotatingCreator : MonoBehaviour
 
     void Update()
     {
-       //transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime); // rotate around itself
+        //transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime); // rotate around itself
     }
 
     // Start is called before the first frame update
     void OnEnable()
     {
-        transform.position = new Vector3(0,0,0);
+        transform.position = new Vector3(0, 0, 0);
         transform.GetChild(0).transform.position = new Vector3(Random.Range(-100, -60), Random.Range(10, 25), 0);
     }
 
