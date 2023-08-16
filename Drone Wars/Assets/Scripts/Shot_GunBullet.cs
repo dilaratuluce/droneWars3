@@ -56,7 +56,6 @@ public class Shot_GunBullet : MonoBehaviour
     }*/
 
     ShotGun my_gun;
-    TakingGun takingGun;
 
     int randomMousePoint;
     Quaternion BulletRotation;
@@ -73,7 +72,6 @@ public class Shot_GunBullet : MonoBehaviour
         combo = FindObjectOfType<Combo>();
         poolMech = FindObjectOfType<poolMechanism>();
         my_gun = FindObjectOfType<ShotGun>();
-        takingGun = FindObjectOfType<TakingGun>();
 
         randomMousePoint = Mathf.RoundToInt(Random.Range(0, 7));
 
@@ -143,7 +141,6 @@ public class Shot_GunBullet : MonoBehaviour
             else manager.Instance.incScore(gameParameters.score_point);
             //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
             collision.transform.gameObject.SetActive(false);
-            takingGun.setGun1ShootedTrue();
             poolMech.enqueue(gameObject, bulletParent);
         }
         else if (collision.transform.tag.Equals(TagHolder.gun_bringer2))
@@ -159,7 +156,6 @@ public class Shot_GunBullet : MonoBehaviour
             else manager.Instance.incScore(gameParameters.score_point);
             //poolMech.enqueue(collision.transform.parent.gameObject, rotatingDroneParent); // new line, parent is the one who needs to be moved here
             collision.transform.gameObject.SetActive(false);
-            takingGun.setGun2ShootedTrue();
 
             poolMech.enqueue(gameObject, bulletParent);
 
@@ -194,7 +190,7 @@ public class Shot_GunBullet : MonoBehaviour
             poolMech.enqueue(gameObject, bulletParent);
         }
 
-        else if (collision.transform.tag.Equals("enemy"))
+        else if (collision.transform.tag.Equals(TagHolder.enemy))
         {
             EnemyHealthSlider = collision.transform.gameObject.GetComponentsInChildren<Slider>()[0];
             if (EnemyHealthSlider.value > my_gun.getDamage())
@@ -261,7 +257,7 @@ public class Shot_GunBullet : MonoBehaviour
 
         }
 
-        else if (collision.transform.tag.Equals("health_drone"))
+        else if (collision.transform.tag.Equals(TagHolder.health_drone))
         {
 
             //Debug.Log("health drone shooted");
@@ -370,11 +366,11 @@ public class Shot_GunBullet : MonoBehaviour
             poolMech.enqueue(gameObject, bulletParent);
 
         }
-        else if (collision.transform.tag.Equals("Untagged") || collision.transform.tag.Equals("player"))
+        else if (collision.transform.tag.Equals(TagHolder.untagged) || collision.transform.tag.Equals(TagHolder.player))
         {
             // do nothing
         }
-        else if (collision.transform.tag.Equals("unshootable"))
+        else if (collision.transform.tag.Equals(TagHolder.unshootable))
         {
             poolMech.enqueue(gameObject, bulletParent);
             manager.Instance.setCombo();

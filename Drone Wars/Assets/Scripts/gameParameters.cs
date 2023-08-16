@@ -50,4 +50,12 @@ public static class gameParameters
     public const double standing_enemy_pos_z = 46.5;
     public const int weapon_rotation = 45;
     public const float weapon_animation_duration = 0.5f;
+    public const int grenadeLauncherSpeed = 25;
+    public const float childObject1_x = 0.388f;
+    public const float childObject1_y = -0.117f;
+    public const float childObject1_z = 0.443f;
+    public const float childObject2_x = 0.227f;
+    public const float childObject2_y = -0.113f;
+    public const float childObject2_z = 0.287f;
+
 }

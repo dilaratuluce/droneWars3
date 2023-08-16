@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +20,11 @@ public class GrenadeLauncher : MonoBehaviour
     [SerializeField] private TMP_Text ammoText;
 
     Quaternion rotation;
-    weaponAnimation weapon_animation;
+    GrenadeLauncherAnimation grenadeLauncherAnimation;
     [Header("****Trajectory Display****")]
-    public LineRenderer lineRenderer;
-    public int linePoints = 175;
-    public float timeIntervalInPoints = 0.01f;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] int linePoints = 175;
+    [SerializeField] float timeIntervalInPoints = 0.01f;
     bulletProjectile projectile;
 
     public void setCurrentAmmoToMax()
@@ -40,7 +41,7 @@ public class GrenadeLauncher : MonoBehaviour
         currentAmmo = maxAmmo;
         projectile = FindObjectOfType<bulletProjectile>();
         poolMech = FindObjectOfType<poolMechanism>();
-        weapon_animation = FindObjectOfType<weaponAnimation>();
+        grenadeLauncherAnimation = FindObjectOfType<GrenadeLauncherAnimation>();
     }
     private void OnEnable()
     {
@@ -86,12 +87,12 @@ public class GrenadeLauncher : MonoBehaviour
     }
     IEnumerator Reload()
     {
-        weapon_animation.Open();
+        grenadeLauncherAnimation.Open();
         isReloading = true;
         Debug.Log("Reloading");
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
-        weapon_animation.Close();
+        grenadeLauncherAnimation.Close();
         isReloading = false;
     }
     public Quaternion getRotation()
@@ -110,7 +111,7 @@ public class GrenadeLauncher : MonoBehaviour
         rotation = Quaternion.LookRotation(aimDir, Vector3.up);*/
 
         Vector3 origin = BulletSpawnPoint.position;
-        Vector3 startVelocity = BulletSpawnPoint.forward * 25; // Adjust bullet speed as needed
+        Vector3 startVelocity = BulletSpawnPoint.forward * gameParameters.grenadeLauncherSpeed; // Adjust bullet speed as needed
 
         float timeStep = timeIntervalInPoints;
 
@@ -129,3 +130,16 @@ public class GrenadeLauncher : MonoBehaviour
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
